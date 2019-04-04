@@ -1,5 +1,5 @@
 classdef Structure < handle
-% STRUCTURE objects hold Points and Links
+% STRUCTURE objects hold Points and Links 
 
     properties
         points = Point.empty();
