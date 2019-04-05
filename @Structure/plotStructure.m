@@ -1,6 +1,7 @@
 function h = plotStructure(obj, varargin)
 
 %% Default options
+ax = gca;
 dimensions = obj.dimensions;
 az = 15; %angle WRT -y axis
 el = 15; %angle WRT +x axis
@@ -44,8 +45,12 @@ for index = 1:2:nargin-1
             az = varargin{index+1};
         case 'el'
             el = varargin{index+1};
+        case 'ax'
+            ax = varargin{index+1};
     end
 end
+
+axes(ax);
 
 %% Get Point coordinates and colors (if not already provided)
 if isempty(pos)

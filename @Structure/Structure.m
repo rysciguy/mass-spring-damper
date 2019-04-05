@@ -170,7 +170,7 @@ classdef Structure < handle
             for i = 1:obj.n
                 for j = i:obj.n
                     link = obj.points(i).connected(obj.points(j));
-                    if ~isempty(link)
+                    if ~isempty(link) && link.enabled
                         K(i, j) = link.stiffness;
                         B(i, j) = link.damping;
                     end
@@ -196,7 +196,7 @@ classdef Structure < handle
             
          % Getting link_coords is more efficient, but getting link_colors is
          % inefficient
-            K = obj.getLinkMatrix();
+            [K, ~] = obj.getLinkMatrix();
             tic
             [As, Bs, ks] = find(triu(K));
             num_links = length(ks);

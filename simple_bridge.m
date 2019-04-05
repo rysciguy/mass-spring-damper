@@ -27,9 +27,46 @@ genome = {Gene_Node(1, [0, 0, 0]);
             Gene_Node(2, [5, 0, 0]);
             Gene_Node(3, [10, 0, 0]);
             Gene_Connect(4, 1, 2, 1);
-            Gene_Connect(5, 2, 3, 1)};
-
-bridge = Bridge(genome);
-bridge.assemble();
-
-bridge.plotStructure('limits', limits);
+            Gene_Connect(5, 2, 3, 1);
+            Gene_Nudge(6, 2, [2,1,0]);
+            Gene_Split(7, 1)
+            Gene_Nudge(8, 4, [-1, -1, 0])};
+        
+        
+sequences = {1:5;
+             1:6;
+             1:7;
+             1:8};
+n = length(sequences);
+cols = 4;
+rows = ceil(n/cols);
+bridges = Bridge.empty(n, 0);
+for i = 1:n
+    bridges(i) = Bridge(genome(sequences{i}));
+    bridges(i).assemble();
+end
+figure = gcf;
+for i = 1:n
+    subplot(rows, cols, i);
+    bridges(i).plotStructure('limits', limits, 'ax', gca);
+    title(mat2str(cell2mat(sequences(i))));
+end
+%         
+% figure;
+% n = 3;
+% 
+% bridge1 = Bridge(genome(1:5));
+% bridge1.assemble();
+% 
+% bridge2 = Bridge(genome(1:6));
+% bridge2.assemble();
+% 
+% bridge3 = Bridge(genome(1:7));
+% bridge3.assemble();
+% 
+% subplot(n,1,1);
+% bridge1.plotStructure('limits', limits, 'ax', gca);
+% subplot(n,1,2);
+% bridge2.plotStructure('limits', limits, 'ax', gca);
+% subplot(n,1,3);
+% bridge3.plotStructure('limits', limits, 'ax', gca);
