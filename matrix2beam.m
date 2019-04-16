@@ -40,8 +40,10 @@ function structure = matrix2beam(A)
                         if A(i, j)>0 && ~(i==row && j==col) %second point exists and isn't the same as first point
                             those_coords = getCoords(i,j,a,height);
                             that = structure.getPoint(those_coords);
-                            new_link = this.connectTo(that);
-                            structure.links = [structure.links new_link];
+                            if isempty(this.connected(that))
+                                new_link = this.connectTo(that);
+                                structure.links = [structure.links new_link];
+                            end
                         end
                     end
                 end
