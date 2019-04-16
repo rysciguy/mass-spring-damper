@@ -1,22 +1,23 @@
-function U = directStiffness(structure)
+function U = directStiffness(structure, links, loads, dimensions)
 %% Constants
 m = 1;       %mass
-k = 1;       %spring constant
-dimensions = 2;
-g = 0.01;
+% k = 1;       %spring constant
+% dimensions = 2;
+% g = 0.01;
 % c = 1;     %damping constant
 
 %% Build matrix
 % dxdt = A*x + b
 % F = Ku -> u = inv(K)*F
 n = structure.countPoints();
-state = structure.getState(); %state vector
+% state = structure.getState(); %state vector
     
-[links, ~] = structure.getLinkMatrix();
+% [links, ~] = structure.getLinkMatrix();
 
 K = zeros(n*dimensions, n*dimensions); %global stiffness matrix
 DOF = zeros(n, dimensions);
-F = zeros(n*dimensions, 1);
+% F = zeros(n*dimensions, 1);
+F = reshape(loads(:, 1:dimensions)', 1, dimensions*n)';
 U = zeros(n*dimensions, 1); %displacement
 
 %Stiffness matrix
@@ -29,8 +30,10 @@ for i = 1:n %iterate nodes
             j_ind = getIndex2(j, 1:dimensions, dimensions);
 %             i_ind = [(i-1)*dimensions + 1 : (i-1)*dimensions+(dimensions-1)];
 %             j_ind = [(j-1)*dimensions + 1 : (j-1)*dimensions+(dimensions-1)];
-            pos_i = state(getindex(i, 1:dimensions, 0));
-            pos_j = state(getindex(j, 1:dimensions, 0));
+            pos_i = structure.points(i).pos;
+            pos_j = structure.points(j).pos;
+%             pos_i = state(getindex(i, 1:dimensions, 0));
+%             pos_j = state(getindex(j, 1:dimensions, 0));
 %                 i2j = getcoord(j,x) - getcoord(i,x); %vector pointing from node i (base) to node j (target)
 %                 i2jr = getcoord(j, xr) - getcoord(i, xr); %vector from base to target while at rest
             i2j = pos_j - pos_i;
@@ -38,10 +41,10 @@ for i = 1:n %iterate nodes
             theta = atan2(i2j(2), i2j(1));
             c = cos(theta);
             s = sin(theta);
-            K_m = k*[c^2 c*s -c^2 -c*s; %member stiffness matrix converted to global coordinates
+            K_m = [c^2 c*s -c^2 -c*s; %member stiffness matrix converted to global coordinates
                    c*s s^2 -c*s -s^2;
                    -c^2 -c*s c^2 c*s;
-                   -c*s -s^2 c*s s^2];
+                   -c*s -s^2 c*s s^2]*links(i, j);
 
 %             for ii = 1:dimensions
 %                 for jj = 1:dimensions
@@ -78,7 +81,7 @@ end
 % K(:, removed) = [];
 
 % Gravity
-F( getIndex2(1:n, 2, dimensions) ) = -g;
+% F( getIndex2(1:n, 2, dimensions) ) = -g;
 % F(removed) = [];
 
 % Solve
