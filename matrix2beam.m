@@ -16,9 +16,8 @@ function structure = matrix2beam(A)
                 this = Point(these_coords);
                 this.parents = structure;
                 this.mass = A(row, col);
+                structure.addPoint(this);
             end
-            
-            structure.addPoint(this);
         end
     end
     

@@ -81,7 +81,16 @@ gen = round(gen);
 % range for the variables in the decision variable space. User has to
 % define the objective functions using the decision variables. Make sure to
 % edit the function 'evaluate_objective' to suit your needs.
-[M, V, min_range, max_range] = objective_description_function();
+% [M, V, min_range, max_range] = objective_description_function();
+
+M = 2; %number of objectives
+
+beam_length = 9;
+beam_height = 6;
+V = beam_length*beam_height; %number of decision variables
+min_range = 0;
+max_range = 1;
+
 
 %% Initialize the population
 % Population is initialized with random values which are within the
@@ -156,10 +165,9 @@ for i = 1 : gen
     % offsprings of the current generation. The population size is two
     % times the initial population.
     
-    [main_pop,temp] = size(chromosome);
-    [offspring_pop,temp] = size(offspring_chromosome);
-    % temp is a dummy variable.
-    clear temp
+    [main_pop,~] = size(chromosome);
+    [offspring_pop,~] = size(offspring_chromosome);
+
     % intermediate_chromosome is a concatenation of current population and
     % the offspring population.
     intermediate_chromosome(1:main_pop,:) = chromosome;

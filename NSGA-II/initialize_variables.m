@@ -50,15 +50,18 @@ max = max_range;
 K = M + V;
 
 %% Initialize each chromosome
+% RR: Genome is binary string
+f(1:N, 1:V) = randi([min, max], N, V);
+
 % For each chromosome perform the following (N is the population size)
 for i = 1 : N
     % Initialize the decision variables based on the minimum and maximum
     % possible values. V is the number of decision variable. A random
     % number is picked between the minimum and maximum possible values for
     % the each decision variable.
-    for j = 1 : V
-        f(i,j) = min(j) + (max(j) - min(j))*rand(1);
-    end
+%     for j = 1 : V
+%         f(i,j) = min(j) + (max(j) - min(j))*rand(1);
+%     end
     % For ease of computation and handling data the chromosome also has the
     % vlaue of the objective function concatenated at the end. The elements
     % V + 1 to K has the objective function valued. 

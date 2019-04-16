@@ -1,10 +1,16 @@
 function f = evaluate_objective(x, M, V)
 
 %% Ryan's objectives
-f = [];
+genome = x(1:V);
+beam_height = 6;
+beam_length = 9;
+[max_displacement, mass] = evaluateGenomeFitness(genome, beam_height, beam_length);
+f = [max_displacement, mass];
+
+
 % Negative because we are maximizing
-f(1) = -1*( x(2)*cos(x(1)*x(2))+x(1) );
-f(2) = -1*( 1 + exp(-x(2)) );
+% f(1) = -1*( x(2)*cos(x(1)*x(2))+x(1) );
+% f(2) = -1*( 1 + exp(-x(2)) );
 
 %% function f = evaluate_objective(x, M, V)
 % Function to evaluate the objective functions for the given input vector

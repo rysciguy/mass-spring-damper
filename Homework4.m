@@ -1,3 +1,6 @@
+% see evaluateGenomeFitness
+
+
 %% Set up
 clear all; close all;
 
@@ -5,7 +8,7 @@ clear all; close all;
 stiffness = 200;
 damping = 28;
 unit_mass = 1; %mass per unit length
-force = 0.25;
+force = 25;
 gravity = [0, 0, 0];
 
 % Plot settings
@@ -53,6 +56,9 @@ tic;
 U = directStiffness(structure, K, loads, dimensions); %displacement column vector
 toc;
 U2 = reshape(U, dimensions, n)'; % nx2 array
+
+mass
+max(U)
 
 %% Plot
 % Get position matrix

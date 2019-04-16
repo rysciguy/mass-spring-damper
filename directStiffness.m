@@ -1,5 +1,8 @@
 function U = directStiffness(structure, links, loads, dimensions)
 
+%Parameters
+conditioning_threshold = 1e30;
+
 % Set up
 % F = Ku -> u = inv(K)*F
 n = structure.countPoints();
@@ -55,6 +58,11 @@ for i = 1:n
 end
 
 % Solve
-U(free) = K(free, free)\F(free);
+c = cond(K);
+if c > conditioning_threshold %stiffness matrix is ill-conditioned
+    U(1) = inf;
+else
+    U(free) = K(free, free)\F(free);
+end
 
 end
