@@ -69,7 +69,7 @@ end
 % tic;
 U = directStiffness(structure, K, loads, dimensions); %displacement column vector
 % toc;
-max_displacement = max(U);
+max_displacement = max(abs(U));
 
 %% Plot
 % Get position matrix

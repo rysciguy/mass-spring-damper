@@ -1,4 +1,5 @@
 function chromosome = nsga_2(pop,gen)
+tic
 
 %% function nsga_2(pop,gen)
 % is a multi-objective optimization function where the input arguments are 
@@ -202,6 +203,8 @@ end
 %% Result
 % Save the result in ASCII text format.
 save solution.txt chromosome -ASCII
+
+toc
 
 %% Visualize
 % RR: I like my code better

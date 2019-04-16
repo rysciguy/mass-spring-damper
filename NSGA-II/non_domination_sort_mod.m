@@ -193,7 +193,7 @@ for front = 1 : (length(F) - 1)
     y = y(:,1 : M + V + 2);
     z(previous_index:current_index,:) = y;
 end
-f = z();
+f = z;
 
 %% References
 % [1] *Kalyanmoy Deb, Amrit Pratap, Sameer Agarwal, and T. Meyarivan*, |A Fast
