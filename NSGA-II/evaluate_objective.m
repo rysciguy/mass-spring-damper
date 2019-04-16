@@ -8,7 +8,7 @@ beam_length = 9;
 f = [max_displacement, mass];
 
 ceiling = 10000; %really high number to replace Inf
-if any(f>ceiling)
+if any(f>ceiling) || any(f==0)
     f = ceiling*ones(1, M);
 end
 % f( isinf(f) ) = ceiling;

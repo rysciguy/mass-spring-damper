@@ -20,7 +20,7 @@ function plotPopulation(chromosome, M, V)
     
     % Plot sample of solutions
     sample_fig = figure;
-    sample = [2 : pop/(grid_size^2 - 2) : pop-1];
+    sample = randsample(2:pop-1, grid_size^2-2);
     sample = [1 sample pop];
     for p = 1:length(sample)
         i = sample(p);
@@ -33,11 +33,11 @@ function plotPopulation(chromosome, M, V)
         subplot(grid_size, grid_size, p);
         structure.plotStructure();
         
-        string = sprintf('Individual %d (deflection=%.3f, mass=%.1f)',...
+        string = sprintf('%d (d=%.3f, m=%.1f)',...
             i, deflection(i), mass(i)); 
         title(string);
     end
     
     figure(pareto_fig);
-    hold on; plot(mass(sample), deflection(sample), 'ro'); hold off;
+    hold on; plot(deflection(sample), mass(sample), 'ro'); hold off;
 end
