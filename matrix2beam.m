@@ -51,5 +51,5 @@ function structure = matrix2beam(A)
         end
     end
             
-    structure.plotStructure();
+%     structure.plotStructure();
 end

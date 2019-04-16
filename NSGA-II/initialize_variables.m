@@ -41,6 +41,7 @@ function f = initialize_variables(N, M, V, min_range, max_range)
 
 min = min_range;
 max = max_range;
+prob = 0.75;
 
 % K is the total number of array elements. For ease of computation decision
 % variables and objective functions are concatenated to form a single
@@ -50,8 +51,11 @@ max = max_range;
 K = M + V;
 
 %% Initialize each chromosome
+f = zeros(N, K);
+
 % RR: Genome is binary string
-f(1:N, 1:V) = randi([min, max], N, V);
+% f(1:N, 1:V) = randi([min, max], N, V);
+f(1:N, 1:V) = rand(N, V) < prob;
 
 % For each chromosome perform the following (N is the population size)
 for i = 1 : N

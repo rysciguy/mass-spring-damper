@@ -43,9 +43,8 @@ function f  = genetic_operator(parent_chromosome, M, V, mu, mum, l_limit, u_limi
 %  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 %  POSSIBILITY OF SUCH DAMAGE.
 
-[N,m] = size(parent_chromosome);
+[N,~] = size(parent_chromosome);
 
-clear m
 p = 1;
 % Flags used to set if crossover and mutation were actually performed. 
 was_crossover = 0;
@@ -79,36 +78,50 @@ for i = 1 : N
         % parents
         parent_1 = parent_chromosome(parent_1,:);
         parent_2 = parent_chromosome(parent_2,:);
+        
+        % RR: Binary crossover
+        child_1 = zeros(1, V);
+        child_2 = child_1;
+        
+        prob = 0.5;
+        mask = rand(1, V) < prob;
+        child_1(mask) = parent_1(mask);
+        child_1(~mask) = parent_2(~mask);
+        
+        child_2(mask) = parent_2(mask);
+        child_2(~mask) = parent_1(~mask);
+        
+        
         % Perform corssover for each decision variable in the chromosome.
-        for j = 1 : V
-            % SBX (Simulated Binary Crossover).
-            % For more information about SBX refer the enclosed pdf file.
-            % Generate a random number
-            u(j) = rand(1);
-            if u(j) <= 0.5
-                bq(j) = (2*u(j))^(1/(mu+1));
-            else
-                bq(j) = (1/(2*(1 - u(j))))^(1/(mu+1));
-            end
-            % Generate the jth element of first child
-            child_1(j) = ...
-                0.5*(((1 + bq(j))*parent_1(j)) + (1 - bq(j))*parent_2(j));
-            % Generate the jth element of second child
-            child_2(j) = ...
-                0.5*(((1 - bq(j))*parent_1(j)) + (1 + bq(j))*parent_2(j));
-            % Make sure that the generated element is within the specified
-            % decision space else set it to the appropriate extrema.
-            if child_1(j) > u_limit(j)
-                child_1(j) = u_limit(j);
-            elseif child_1(j) < l_limit(j)
-                child_1(j) = l_limit(j);
-            end
-            if child_2(j) > u_limit(j)
-                child_2(j) = u_limit(j);
-            elseif child_2(j) < l_limit(j)
-                child_2(j) = l_limit(j);
-            end
-        end
+%         for j = 1 : V
+%             % SBX (Simulated Binary Crossover).
+%             % For more information about SBX refer the enclosed pdf file.
+%             % Generate a random number
+%             u(j) = rand(1);
+%             if u(j) <= 0.5
+%                 bq(j) = (2*u(j))^(1/(mu+1));
+%             else
+%                 bq(j) = (1/(2*(1 - u(j))))^(1/(mu+1));
+%             end
+%             % Generate the jth element of first child
+%             child_1(j) = ...
+%                 0.5*(((1 + bq(j))*parent_1(j)) + (1 - bq(j))*parent_2(j));
+%             % Generate the jth element of second child
+%             child_2(j) = ...
+%                 0.5*(((1 - bq(j))*parent_1(j)) + (1 + bq(j))*parent_2(j));
+%             % Make sure that the generated element is within the specified
+%             % decision space else set it to the appropriate extrema.
+%             if child_1(j) > u_limit
+%                 child_1(j) = u_limit;
+%             elseif child_1(j) < l_limit
+%                 child_1(j) = l_limit;
+%             end
+%             if child_2(j) > u_limit
+%                 child_2(j) = u_limit;
+%             elseif child_2(j) < l_limit
+%                 child_2(j) = l_limit;
+%             end
+%         end
         % Evaluate the objective function for the offsprings and as before
         % concatenate the offspring chromosome with objective value.
         child_1(:,V + 1: M + V) = evaluate_objective(child_1, M, V);
@@ -129,23 +142,28 @@ for i = 1 : N
         % Get the chromosome information for the randomnly selected parent.
         child_3 = parent_chromosome(parent_3,:);
         % Perform mutation on eact element of the selected parent.
-        for j = 1 : V
-           r(j) = rand(1);
-           if r(j) < 0.5
-               delta(j) = (2*r(j))^(1/(mum+1)) - 1;
-           else
-               delta(j) = 1 - (2*(1 - r(j)))^(1/(mum+1));
-           end
-           % Generate the corresponding child element.
-           child_3(j) = child_3(j) + delta(j);
-           % Make sure that the generated element is within the decision
-           % space.
-           if child_3(j) > u_limit(j)
-               child_3(j) = u_limit(j);
-           elseif child_3(j) < l_limit(j)
-               child_3(j) = l_limit(j);
-           end
-        end
+        % RR: Binary mutation
+        mut_prob = 0.1;
+        mask = rand(1, V) < mut_prob;
+        child_3(mask) = ~child_3(mask);
+        
+%         for j = 1 : V
+%            r(j) = rand(1);
+%            if r(j) < 0.5
+%                delta(j) = (2*r(j))^(1/(mum+1)) - 1;
+%            else
+%                delta(j) = 1 - (2*(1 - r(j)))^(1/(mum+1));
+%            end
+%            % Generate the corresponding child element.
+%            child_3(j) = child_3(j) + delta(j);
+%            % Make sure that the generated element is within the decision
+%            % space.
+%            if child_3(j) > u_limit
+%                child_3(j) = u_limit;
+%            elseif child_3(j) < l_limit
+%                child_3(j) = l_limit;
+%            end
+%         end
         % Evaluate the objective function for the offspring and as before
         % concatenate the offspring chromosome with objective value.    
         child_3(:,V + 1: M + V) = evaluate_objective(child_3, M, V);

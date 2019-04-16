@@ -1,4 +1,4 @@
-function nsga_2(pop,gen)
+function chromosome = nsga_2(pop,gen)
 
 %% function nsga_2(pop,gen)
 % is a multi-objective optimization function where the input arguments are 
@@ -52,6 +52,12 @@ function nsga_2(pop,gen)
 %  POSSIBILITY OF SUCH DAMAGE.
 
 %  Modified by Ryan Reedy (2019)
+
+% chromosome
+    % chromosome(:, 1:V)           decision variables (genome)
+    % chromosome(:, V+1 : V+M)     fitness
+    % chromosome(:, V+M+1)         rank
+    % chromosome(:, end)           crowding
 
 %% Simple error checking
 % Number of Arguments
@@ -198,11 +204,14 @@ end
 save solution.txt chromosome -ASCII
 
 %% Visualize
+% RR: I like my code better
+plotPopulation(chromosome, M, V);
+
 % The following is used to visualize the result if objective space
 % dimension is visualizable.
-if M == 2
-    plot(chromosome(:,V + 1),chromosome(:,V + 2),'*');
-elseif M ==3
-    plot3(chromosome(:,V + 1),chromosome(:,V + 2),chromosome(:,V + 3),'*');
-end
+% if M == 2
+%     plot(chromosome(:,V + 1),chromosome(:,V + 2),'*');
+% elseif M ==3
+%     plot3(chromosome(:,V + 1),chromosome(:,V + 2),chromosome(:,V + 3),'*');
+% end
     

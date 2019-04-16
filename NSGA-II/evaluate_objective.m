@@ -7,6 +7,11 @@ beam_length = 9;
 [max_displacement, mass] = evaluateGenomeFitness(genome, beam_height, beam_length);
 f = [max_displacement, mass];
 
+ceiling = 10000; %really high number to replace Inf
+if any(f>ceiling)
+    f = ceiling*ones(1, M);
+end
+% f( isinf(f) ) = ceiling;
 
 % Negative because we are maximizing
 % f(1) = -1*( x(2)*cos(x(1)*x(2))+x(1) );
