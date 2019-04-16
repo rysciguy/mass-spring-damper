@@ -6,6 +6,7 @@ ode_options = odeset('MaxStep', 1); %set maximum step size to 1 second
 t_span = [0 10]; %time span to be simulated
 
 % Plot settings
+dimensions = 2;
 DELTA_T = 0.1; %animation step size
 delay = 0/1000; %(seconds) used to slow down animation in case it's too fast
 radius = 0.4; %mass radius to be plotted (2D only)
@@ -19,11 +20,48 @@ SAVE_VIDEO = false; %if true, save animation frames to video
 FILE_NAME = 'Plots/Test1b.avi';
 
 %% Build structure
-%initial 3DArray, initialBeam, initialCube, initialPart4, or initialSquare
-initialBeam
+stiffness = 200;
+damping = 28;
+matrix = [1,1,1,1,1;
+          1,1,1,1,1;
+          1,1,1,1,1];
+structure = matrix2beam(matrix);
+[structure.findPoints('left').DOF] = deal([0,0,0]); %fix left end
+structure.refresh();
+s_0 = structure.getState();
 n = structure.countPoints();
 [K, B] = structure.getLinkMatrix();
-% structure.plotStructure();
+
+gravity = [0, -0.01,0];
+
+% Preprocess
+pos = zeros(n, 3);
+[A_idxs, B_idxs, ks] = find(triu(K)); %indices of each pair of links
+num_links = size(ks,1); %number of nonzero elements in K
+[link_coords, link_colors] = structure.getLinkData();
+
+%% Direct solver
+tic;
+u = directStiffness(structure); %column vector
+toc;
+u2 = reshape(u, dimensions, n)'; % nx2 array
+
+pos = zeros(n, 3);
+for i = 1:n %convert state vector to position matrix
+    pos(i, :) = s_0(getindex(i, 1:3, 0));
+end
+pos(:, 1:dimensions) = pos(:, 1:dimensions) + u2;
+
+% Get pairs of point coordinates for each links
+if show_links
+    for l = 1:num_links
+        link_coords(1,:,l) = pos(A_idxs(l),:);
+        link_coords(2,:,l) = pos(B_idxs(l),:);
+    end
+end
+plot_args = {'pos', pos, 'link_coords', link_coords, 'link_colors', link_colors, 'limits', limits, ...
+        'show_links', show_links};
+structure.plotStructure(plot_args{:});
 
 %% Solve equations of motion
 tic
@@ -36,12 +74,6 @@ tic
 fig_animation = figure('visible','on');
 
 clear frames; %clean up in case there are leftover frames from previous run
-
-% Preprocess
-pos = zeros(n, 3);
-[A_idxs, B_idxs, ks] = find(triu(K)); %indices of each pair of links
-num_links = size(ks,1); %number of nonzero elements in K
-[link_coords, link_colors] = structure.getLinkData();
 
 % Loop to animate mass positions
 i_loop = 1;
