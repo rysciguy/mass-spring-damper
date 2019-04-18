@@ -41,16 +41,23 @@ n = length(sequences);
 cols = 4;
 rows = ceil(n/cols);
 bridges = Bridge.empty(n, 0);
+displacements = zeros(n, 1);
+masses = zeros(n, 1);
 for i = 1:n
     bridges(i) = Bridge(genome(sequences{i}));
     bridges(i).assemble();
+    
+    figure;
+    [d, m] = evaluateBridgeFitness(bridges(i));
+    displacements(i) = d;
+    masses(i) = d;
 end
-figure = gcf;
-for i = 1:n
-    subplot(rows, cols, i);
-    bridges(i).plotStructure('limits', limits, 'ax', gca);
-    title(mat2str(cell2mat(sequences(i))));
-end
+% figure = gcf;
+% for i = 1:n
+%     subplot(rows, cols, i);
+%     bridges(i).plotStructure('limits', limits, 'ax', gca);
+%     title(mat2str(cell2mat(sequences(i))));
+% end
 %         
 % figure;
 % n = 3;
