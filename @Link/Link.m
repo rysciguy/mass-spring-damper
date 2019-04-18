@@ -7,6 +7,7 @@ classdef Link < handle
         L0 = 0;
         
         color;
+        enabled = 1;
     end
     methods
         function obj = Link(A, B, varargin)

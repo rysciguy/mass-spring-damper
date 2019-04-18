@@ -1,6 +1,7 @@
 function h = plotStructure(obj, varargin)
 
 %% Default options
+ax = gca;
 dimensions = obj.dimensions;
 az = 15; %angle WRT -y axis
 el = 15; %angle WRT +x axis
@@ -16,7 +17,7 @@ width_i = 0.5; %default LineWidth for links
 % width_min = 0.5;
 % width_max = 3;
 
-limits = [-5 5 -5 5 -5 5];
+% limits = [-5 5 -5 5 -5 5];
 
 %% Pass in options
 %https://www.mathworks.com/help/matlab/creating_guis/initializing-a-guide-gui.html
@@ -44,8 +45,12 @@ for index = 1:2:nargin-1
             az = varargin{index+1};
         case 'el'
             el = varargin{index+1};
+        case 'ax'
+            ax = varargin{index+1};
     end
 end
+
+axes(ax);
 
 %% Get Point coordinates and colors (if not already provided)
 if isempty(pos)
@@ -90,7 +95,9 @@ end
 
 % Maintain plot view settings
 daspect([1,1,1]);
-axis(limits);
+if exist('limits', 'var')
+    axis(limits);
+end
 if dimensions == 3
     view(az, el);
 end
