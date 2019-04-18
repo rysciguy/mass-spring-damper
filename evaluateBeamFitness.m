@@ -1,4 +1,4 @@
-function [max_displacement, mass] = evaluateGenomeFitness(genome, beam_height, beam_length)
+function [max_displacement, mass] = evaluateBeamFitness(genome, beam_height, beam_length)
 
 PLOTTING = 0;
 

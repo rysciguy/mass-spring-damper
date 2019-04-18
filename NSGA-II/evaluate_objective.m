@@ -4,7 +4,7 @@ function f = evaluate_objective(x, M, V)
 genome = x(1:V);
 beam_height = 6;
 beam_length = 9;
-[max_displacement, mass] = evaluateGenomeFitness(genome, beam_height, beam_length);
+[max_displacement, mass] = evaluateBeamFitness(genome, beam_height, beam_length);
 f = [max_displacement, mass];
 
 ceiling = 10000; %really high number to replace Inf
