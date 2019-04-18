@@ -115,12 +115,12 @@ classdef Point < handle
             end
             
             % Calculate mass
-            m = 0;
-            for i = 1:length(obj.parents)
-                p = obj.parents(i);
-                m = m + p.density/p.volume/p.n;
-            end
-            obj.mass = m;
+%             m = 0;
+%             for i = 1:length(obj.parents)
+%                 p = obj.parents(i);
+%                 m = m + p.density/p.volume/p.n;
+%             end
+%             obj.mass = m;
         end
             
     end

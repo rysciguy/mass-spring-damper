@@ -126,7 +126,7 @@ classdef Structure < handle
             end
         end
         
-        function points = findPoints(obj, varargin)
+        function [points, indices] = findPoints(obj, varargin)
             all_coords = obj.getCoords();
             target_coords = all_coords;
             for i = 1:size(varargin, 2)

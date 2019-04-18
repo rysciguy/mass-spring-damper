@@ -17,7 +17,7 @@ width_i = 0.5; %default LineWidth for links
 % width_min = 0.5;
 % width_max = 3;
 
-limits = [-5 5 -5 5 -5 5];
+% limits = [-5 5 -5 5 -5 5];
 
 %% Pass in options
 %https://www.mathworks.com/help/matlab/creating_guis/initializing-a-guide-gui.html
@@ -95,7 +95,9 @@ end
 
 % Maintain plot view settings
 daspect([1,1,1]);
-axis(limits);
+if exist('limits', 'var')
+    axis(limits);
+end
 if dimensions == 3
     view(az, el);
 end

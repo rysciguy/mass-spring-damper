@@ -8,6 +8,7 @@ classdef Voxel < Structure
             % Defaults
             a = 1;
             obj.dimensions = 2;
+            obj.origin = [0,0,0];
 
             for index = 1:2:nargin-1
                 switch lower(varargin{index}) %key
