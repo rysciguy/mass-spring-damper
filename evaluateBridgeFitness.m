@@ -1,6 +1,26 @@
-function [max_displacement, mass] = evaluateBridgeFitness(structure)
+function [max_displacement, mass] = evaluateBridgeFitness(structure, varargin)
 
-PLOTTING = 1; %if True, plot the undeformed and deformed structure
+%Defaults
+PLOTTING = 1; %if True, plot the undeformed structure above the deformed structure
+x_limits = [0, 10];
+y_limits = [-5, 5];
+limits = [x_limits y_limits];
+num_plots = 1; %number of subplot columns
+plot_ind = 1; %index of subplot column
+
+%Arguments
+for index = 1:2:nargin-1
+    switch lower(varargin{index}) %key
+        case 'plotting'
+            PLOTTING = varargin{index+1};
+        case 'limits'
+            limits = varargin{index+1};
+        case 'num_plots'
+            num_plots = varargin{index+1};
+        case 'plot_ind'
+            plot_ind = varargin{index+1};
+    end
+end
 
 % Parameters
 stiffness = 1000;
@@ -11,9 +31,6 @@ gravity = [0, 0, 0];
 % Plot settings
 dimensions = 2;
 show_links = 1;
-x_limits = [0, 10];
-y_limits = [-5, 5];
-limits = [x_limits y_limits];
 
 %% Build structure
 structure.stiffness = stiffness;
@@ -50,7 +67,7 @@ end
 
 % Plot
 if PLOTTING
-    subplot(2,1,1);
+    subplot(2,num_plots,plot_ind);
     plot_args = {'link_coords', link_coords, 'link_colors', link_colors, 'limits', limits, ...
             'show_links', show_links};
     structure.plotStructure(plot_args{:});
@@ -81,7 +98,7 @@ if PLOTTING
         end
     end
 
-    subplot(2,1,2);
+    subplot(2,num_plots,plot_ind+num_plots);
     plot_args = {'pos', pos, 'link_coords', link_coords, 'link_colors', link_colors, 'limits', limits, ...
             'show_links', show_links};
     structure.plotStructure(plot_args{:});

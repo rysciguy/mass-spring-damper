@@ -32,7 +32,6 @@ genome = {Gene_Node(1, [0, 0, 0]);
             Gene_Split(7, 1)
             Gene_Nudge(8, 4, [-1, -1, 0])};
         
-        
 sequences = {1:5;
              1:6;
              1:7;
@@ -47,8 +46,8 @@ for i = 1:n
     bridges(i) = Bridge(genome(sequences{i}));
     bridges(i).assemble();
     
-    figure;
-    [d, m] = evaluateBridgeFitness(bridges(i));
+    arguments = {'num_plots', n, 'plot_ind', i}; %used for subplots
+    [d, m] = evaluateBridgeFitness(bridges(i), arguments{:});
     displacements(i) = d;
     masses(i) = d;
 end
