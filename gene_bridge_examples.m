@@ -3,9 +3,7 @@ genome = {Gene_Node(1, [0, 0, 0]);
             Gene_Node(3, [10, 0, 0]);
             Gene_Connect(4, 1, 2, 1);
             Gene_Connect(5, 2, 3, 1);
-            Gene_Nudge(6, 2, [2,1,0]);
-            Gene_Split(7, 1)
-            Gene_Nudge(8, 4, [-1, -1, 0])};
+            
         
 genomeA = {Gene_Node(1, [0, 0, 0]);
             Gene_Node(2, [5, 0, 0]);
@@ -102,9 +100,34 @@ genomeE = {Gene_Node(1, [0, 0, 0]);
             Gene_Node(3, [10, 0, 0]);
             Gene_Connect(4, 1, 2, 1);
             Gene_Connect(5, 2, 3, 1);
-            Gene_Nudge(6, 2, [2,1,0]);
-            Gene_Split(7, 1)
-            Gene_Nudge(8, 4, [-1, -1, 0])};
+            Gene_Split(6, 1);
+            Gene_Split(7, 2);
+            Gene_Split(8, 3);
+            Gene_Split(9, 6);
+            Gene_Nudge(10, 7, [-0.42, 1.67, 0]);
+            Gene_Nudge(11, 6, [0.42, 1.67, 0]);
+            Gene_Split(12, 9);
+            Gene_Split(13, 7);
+            Gene_Nudge(14, 9, [0.835, -0.835, 0]);
+            Gene_Nudge(15, 8, [-0.835, -0.835, 0]);
+            Gene_Connect(16, 9, 1, 1);
+            Gene_Connect(17, 8, 3, 1);
+            Gene_Split(18, 4);
+            Gene_Split(19, 5);
+            Gene_Split(20, 17);
+            Gene_Nudge(21, 10, [-1.25, 3.33, 0]);
+            Gene_Nudge(22, 11, [1.25, 3.33, 0]);
+            Gene_Nudge(23, 12, [0.625, 5, 0]);
+            Gene_Connect(24, 12, 11, 1);
+            Gene_Connect(25, 10, 2, 1); %fix
+            Gene_Connect(26, 6, 10, 1);
+            Gene_Connect(27, 1, 6, 1); %fix
+            Gene_Connect(28, 9, 4, 1);
+            Gene_Connect(29, 4, 2, 1); %fix
+            Gene_Connect(30, 2, 5, 1);%fix
+            Gene_Connect(31, 5, 8, 1);
+            Gene_Connect(32, 3, 7, 1); %fix
+            Gene_Connect(33, 7, 11, 1)};
         
 genomeF = {Gene_Node(1, [0, 0, 0]);
             Gene_Node(2, [5, 0, 0]);

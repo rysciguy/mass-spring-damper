@@ -57,7 +57,9 @@ genome = {Gene_Node(1, [0, 0, 0]);
             Gene_Connect(32, 4, 8, 1)};
         
         
-sequences = {1:5;
+sequences = {
+    
+             1:5;
              1:6;
              1:7;
              1:8;
@@ -67,6 +69,7 @@ sequences = {1:5;
              1:12;
              1:13;
              1:14;
+%}
              1:15;
              1:16;
              1:17;
@@ -84,7 +87,8 @@ sequences = {1:5;
              1:29;
              1:30;
              1:31;
-             1:32};
+             1:32}; 
+            % 1:33};
 n = length(sequences);
 cols = 4;
 rows = ceil(n/cols);
