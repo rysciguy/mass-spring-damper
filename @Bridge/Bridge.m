@@ -19,5 +19,15 @@ classdef Bridge < Structure
             end
             obj.refresh();
         end
+        
+        function point = pointID(obj, id)
+            id_list = [obj.points.id];
+            point = obj.points(id_list == id);
+            if length(point) > 1
+                warning('%d points share the same id=%d', length(point), id);
+            elseif isempty(point)
+                warning('No points with id=%d found', id);
+            end
+        end
     end
 end
