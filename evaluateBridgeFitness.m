@@ -55,7 +55,7 @@ num_links = size(ks,1); %number of nonzero elements in K
 [link_coords, link_colors] = structure.getLinkData();
 
 % Calculate mass
-L0 = zeros(num_links);
+L0 = zeros(num_links, 1);
 for link_idx = 1:num_links
     L0(link_idx) = norm(link_coords(1, :, link_idx) - link_coords(2, :, link_idx));
 end
@@ -87,7 +87,7 @@ if PLOTTING
     pos(:, 1:dimensions) = pos(:, 1:dimensions) + U2;
 
     % Get pairs of point coordinates for each link
-    L = zeros(num_links); %final length matrix
+    L = zeros(num_links, 1); %final length matrix
     if show_links
         for link_idx = 1:num_links
             link_coords(1,:,link_idx) = pos(A_idxs(link_idx),:);
@@ -95,8 +95,14 @@ if PLOTTING
             L(link_idx) = norm(link_coords(1, :, link_idx) - link_coords(2, :, link_idx));
         end
     end
-    strain = (L-L0)/L0;
     
+    % Calculate strain and color it
+    Strain = (L-L0)./L0;
+    strain_range = [min(Strain), max(Strain)];
+    color_map = jet;
+    color_range = 1:size(color_map, 1);
+    strain_idxs = round(mapFromTo(Strain, strain_range, color_range));
+    link_colors = color_map(strain_idxs, :);
     
 
     subplot(2,num_plots,plot_ind+num_plots);
