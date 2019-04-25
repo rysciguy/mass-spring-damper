@@ -23,7 +23,7 @@ for index = 1:2:nargin-1
 end
 
 % Parameters
-stiffness = 1000;
+stiffness = 1;
 unit_mass = 1; %mass per unit length
 force = -0.25;
 gravity = [0, 0, 0];
@@ -59,13 +59,13 @@ num_links = size(ks,1); %number of nonzero elements in K
 [link_coords, link_colors] = structure.getLinkData();
 
 % Calculate mass
-mass = 0;
-for l_ind = 1:size(link_coords, 3)
-    member_length = norm(link_coords(1, :, l_ind) - link_coords(2, :, l_ind));
-    mass = mass + member_length*unit_mass;
+L0 = zeros(num_links);
+for link_idx = 1:num_links
+    L0(link_idx) = norm(link_coords(1, :, link_idx) - link_coords(2, :, link_idx));
 end
+mass = unit_mass*sum(L0);
 
-% Plot
+% Plot undeformed structure
 if PLOTTING
     subplot(2,num_plots,plot_ind);
     plot_args = {'link_coords', link_coords, 'link_colors', link_colors, 'limits', limits, ...
@@ -79,7 +79,7 @@ U = directStiffness(structure, K, loads); %displacement column vector
 % toc;
 max_displacement = max(abs(U));
 
-%% Plot
+%% Plot deformed structure
 % Get position matrix
 if PLOTTING
 
@@ -91,12 +91,17 @@ if PLOTTING
     pos(:, 1:dimensions) = pos(:, 1:dimensions) + U2;
 
     % Get pairs of point coordinates for each link
+    L = zeros(num_links); %final length matrix
     if show_links
-        for l = 1:num_links
-            link_coords(1,:,l) = pos(A_idxs(l),:);
-            link_coords(2,:,l) = pos(B_idxs(l),:);
+        for link_idx = 1:num_links
+            link_coords(1,:,link_idx) = pos(A_idxs(link_idx),:);
+            link_coords(2,:,link_idx) = pos(B_idxs(link_idx),:);
+            L(link_idx) = norm(link_coords(1, :, link_idx) - link_coords(2, :, link_idx));
         end
     end
+    strain = (L-L0)/L0;
+    
+    
 
     subplot(2,num_plots,plot_ind+num_plots);
     plot_args = {'pos', pos, 'link_coords', link_coords, 'link_colors', link_colors, 'limits', limits, ...
