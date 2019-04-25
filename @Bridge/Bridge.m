@@ -8,6 +8,7 @@ classdef Bridge < Structure
         function obj = Bridge(genome) 
             % Constructor
             obj.dimensions = 2; 
+            obj.color = [0,0,0]; %black
             obj.genome = genome;
         end
         

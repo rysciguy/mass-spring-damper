@@ -98,11 +98,11 @@ if PLOTTING
     
     % Calculate strain and color it
     Strain = (L-L0)./L0;
-    strain_range = [min(Strain), max(Strain)];
-    color_map = jet;
-    color_range = 1:size(color_map, 1);
-    strain_idxs = round(mapFromTo(Strain, strain_range, color_range));
-    link_colors = color_map(strain_idxs, :);
+%     strain_range = [-0.1, 0.1];
+%     color_map = jet;
+%     color_range = 1:size(color_map, 1);
+%     strain_idxs = round(mapFromTo(Strain, strain_range, color_range));
+    link_colors = strainColor(Strain);
     
 
     subplot(2,num_plots,plot_ind+num_plots);
