@@ -117,17 +117,19 @@ genomeE = {Gene_Node(1, [0, 0, 0]);
             Gene_Split(20, 17);
             Gene_Nudge(21, 10, [-1.25, 3.33, 0]);
             Gene_Nudge(22, 11, [1.25, 3.33, 0]);
-            Gene_Nudge(23, 12, [0.625, 5, 0]);
+            Gene_Nudge(23, 12, [-0.625, 5, 0]);
             Gene_Connect(24, 12, 11, 1);
-            Gene_Connect(25, 10, 2, 1); %fix
+            Gene_Connect(25, 10, 2, 1); 
             Gene_Connect(26, 6, 10, 1);
-            Gene_Connect(27, 1, 6, 1); %fix
+            Gene_Connect(27, 1, 6, 1);
             Gene_Connect(28, 9, 4, 1);
-            Gene_Connect(29, 4, 2, 1); %fix
-            Gene_Connect(30, 2, 5, 1);%fix
+            Gene_Connect(29, 4, 2, 1); 
+            Gene_Connect(30, 2, 5, 1);
             Gene_Connect(31, 5, 8, 1);
-            Gene_Connect(32, 3, 7, 1); %fix
-            Gene_Connect(33, 7, 11, 1)};
+            Gene_Connect(32, 3, 7, 1); 
+            Gene_Connect(33, 12, 10, 1);
+            Gene_Connect(34, 11, 2, 1);
+            Gene_Connect(35, 7, 11, 1)};
         
 genomeF = {Gene_Node(1, [0, 0, 0]);
             Gene_Node(2, [5, 0, 0]);
