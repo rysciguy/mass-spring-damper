@@ -1,12 +1,14 @@
 classdef Gene_Split < Gene
     properties
         link_id;
+        pt_id;
     end
     
     methods
-        function obj = Gene_Split(i, link_id)
+        function obj = Gene_Split(i, link_id, pt_id)
             obj.innovation = i;
             obj.link_id = link_id;
+            obj.pt_id = pt_id;
         end
         
         function express(obj, bridge)
@@ -19,6 +21,7 @@ classdef Gene_Split < Gene
             
             center_pos = A.pos + (B.pos-A.pos)/2;
             C = Point(center_pos);
+            C.id = obj.pt_id;
             C.parents = bridge;
             bridge.addPoint(C);
             
