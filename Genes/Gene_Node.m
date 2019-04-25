@@ -1,18 +1,17 @@
 classdef Gene_Node < Gene
     properties
         pos;
-        id;
+        pt_id;
     end
     
     methods
-        function obj = Gene_Node(i, pos, id)
+        function obj = Gene_Node(i, pos)
             obj.innovation = i;
             obj.pos = pos;
-            obj.id = id;
         end
         function express(obj, bridge)
             pt = Point(obj.pos);
-            pt.id = obj.id;
+            pt.pt_id = obj.genotype.incrementPoints();
             pt.parents = bridge;
             bridge.addPoint(pt);
         end

@@ -3,17 +3,14 @@ classdef Gene_Connect < Gene
         pt_A_id;
         pt_B_id;
         stiffness;
-        link_id;
-        
     end
     
     methods
-        function obj = Gene_Connect(i, pt_A_id, pt_B_id, stiffness, link_id)
+        function obj = Gene_Connect(i, pt_A_id, pt_B_id, stiffness)
             obj.innovation = i;
             obj.pt_A_id = pt_A_id;
             obj.pt_B_id = pt_B_id;
             obj.stiffness = stiffness;
-            obj.link_id = link_id;
         end
         function express(obj, bridge)
             pt_A = bridge.pointID(obj.pt_A_id);
@@ -24,6 +21,7 @@ classdef Gene_Connect < Gene
             else
                 new_link = pt_A.connectTo(pt_B);
                 new_link.stiffness = obj.stiffness;
+                new_link.id = obj.genotype.incrementLinks();
                 bridge.links = [bridge.links new_link];
             end
         end
