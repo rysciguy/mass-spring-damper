@@ -2,7 +2,7 @@ genome = {Gene_Node(1, [0, 0, 0]);
             Gene_Node(2, [5, 0, 0]);
             Gene_Node(3, [10, 0, 0]);
             Gene_Connect(4, 1, 2, 1);
-            Gene_Connect(5, 2, 3, 1);
+            Gene_Connect(5, 2, 3, 1)};
             
         
 genomeA = {Gene_Node(1, [0, 0, 0]);

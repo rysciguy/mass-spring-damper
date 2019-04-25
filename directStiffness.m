@@ -1,11 +1,14 @@
-function U = directStiffness(structure, links, loads, dimensions)
+function U = directStiffness(structure, links, loads)
+% Solves for the displacement of a structure via the direct stiffness
+% method.
+%   structure: a Structure object
+%   links: global stiffness matrix
+%   loads: force column vector
 
-%Parameters
-% conditioning_threshold = 1e-20;
-
-% Set up
+%% Set up
 % F = Ku -> u = inv(K)*F
 n = structure.countPoints();
+dimensions = structure.dimensions;
 
 K = zeros(n*dimensions, n*dimensions); %global stiffness matrix
 DOF = zeros(n, dimensions); %degrees of freedom
@@ -13,7 +16,7 @@ DOF = zeros(n, dimensions); %degrees of freedom
 F = reshape(loads(:, 1:dimensions)', 1, dimensions*n)'; %force column vector
 U = zeros(n*dimensions, 1); %displacement column vector
 
-% Build stiffness matrix
+%% Build stiffness matrix
 for i = 1:n %iterate nodes
     DOF(i, :) = structure.points(i).DOF(1:dimensions);
     for j = 1:n %iterate target nodes
@@ -44,7 +47,7 @@ for i = 1:n %iterate nodes
     end % for j = 1:N 
 end % for i = 1:N
 
-% Boundary conditions
+%% Boundary conditions
 % Rows and columns corresponding to fixed degrees of freedom are not
 % considered
 free = [];
@@ -57,7 +60,7 @@ for i = 1:n
     end
 end
 
-% Solve
+%% Solve
 % c = rcond(K);
 % if c < conditioning_threshold %stiffness matrix is ill-conditioned
 %     U(1) = inf;

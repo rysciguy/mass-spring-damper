@@ -1,4 +1,7 @@
 function structure = beam2D(length, height, varargin)
+% Creates a 2-dimensional beam structure given a length, height, and
+% optional 'unit' argument
+
     % Defaults
     a = 1;
     

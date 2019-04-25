@@ -67,7 +67,7 @@ end
 
 %% Direct solver
 % tic;
-U = directStiffness(structure, K, loads, dimensions); %displacement column vector
+U = directStiffness(structure, K, loads); %displacement column vector
 % toc;
 max_displacement = max(abs(U));
 

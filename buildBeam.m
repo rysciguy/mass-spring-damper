@@ -1,4 +1,6 @@
 function structure = buildBeam(length, height, width, varargin)
+% Builds a 3-dimensional beam structure  (or 2-dimensional if width==0)
+
     % Defaults
     a = 1;
     

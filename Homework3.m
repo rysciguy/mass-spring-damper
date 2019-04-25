@@ -1,3 +1,5 @@
+%Animates a 2D structure under the influence of gravity
+
 %% Set up
 clear all; close all;
 

@@ -1,3 +1,6 @@
+% Script that plots and evaluates the fitness of a sample of manually
+% generated Bridge structures
+
 %% Settings
 x_limits = [-1, 11];
 y_limits = [-5, 5];

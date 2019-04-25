@@ -1,4 +1,6 @@
 function structure = matrix2beam(A)
+% Converts a matrix of point masses into a Structure object
+
     structure = Structure();
     structure.dimensions = 2;
     

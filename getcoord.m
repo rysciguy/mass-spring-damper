@@ -1,4 +1,5 @@
 function [coord] = getcoord(i, x)
+% Gets the (x,y,z) coordinates of point i within the state vector x
     row = 1 + 6*(i-1);
     
     coord(1) = x(row);

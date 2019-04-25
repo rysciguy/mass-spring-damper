@@ -1,3 +1,5 @@
+% Script that plots manually generated Bridge structures
+
 %% Settings
 x_limits = [-1, 11];
 y_limits = [-5, 5];

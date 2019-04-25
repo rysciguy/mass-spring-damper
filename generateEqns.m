@@ -1,4 +1,5 @@
 function generateEqns(structure, gravity)
+% Builds the autoODE.m file with the equations of motion for use with ode23.
 
 fileID = fopen('autoODE.m', 'wt');
 fprintf(fileID, 'function Sd = myODEfunc(t,S)\n');
