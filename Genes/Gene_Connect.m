@@ -15,9 +15,14 @@ classdef Gene_Connect < Gene
         function express(obj, bridge)
             this = bridge.points(obj.A);
             that = bridge.points(obj.B);
-            new_link = this.connectTo(that);
-            new_link.stiffness = obj.stiffness;
-            bridge.links = [bridge.links new_link];
+            existing_link = bridge.points(obj.A).connected(bridge.points(obj.B));
+            if ~isempty(existing_link)
+                existing_link.enabled = 1;
+            else
+                new_link = this.connectTo(that);
+                new_link.stiffness = obj.stiffness;
+                bridge.links = [bridge.links new_link];
+            end
         end
     end
 end
