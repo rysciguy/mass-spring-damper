@@ -51,8 +51,8 @@ genome = {Gene_Node(1, [0, 0, 0]);
         
 sequences = {1:10;
              1:29;
-             1:32;};
-n = length(sequences);
+             1:32};
+n = size(sequences, 1);
 cols = 4;
 rows = ceil(n/cols);
 bridges = Bridge.empty(n, 0);
