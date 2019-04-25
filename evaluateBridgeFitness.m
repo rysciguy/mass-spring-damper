@@ -23,7 +23,6 @@ for index = 1:2:nargin-1
 end
 
 % Parameters
-stiffness = 1;
 unit_mass = 1; %mass per unit length
 force = -0.25;
 gravity = [0, 0, 0];
@@ -33,9 +32,6 @@ dimensions = 2;
 show_links = 1;
 
 %% Build structure
-structure.stiffness = stiffness;
-structure.refresh();
-
 s_0 = structure.getState(); %state vector
 n = structure.countPoints();
 [K, ~] = structure.getLinkMatrix(); %stiffness and damping matrices

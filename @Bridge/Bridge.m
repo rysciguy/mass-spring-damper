@@ -16,6 +16,7 @@ classdef Bridge < Structure
                 g = obj.genome{i};
                 g.express(obj);
             end
+            obj.refresh();
         end
     end
 end
