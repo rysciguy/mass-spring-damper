@@ -1,16 +1,16 @@
 classdef Gene_Split < Gene
     properties
-        link_index;
+        link_id;
     end
     
     methods
-        function obj = Gene_Split(i, link_index)
+        function obj = Gene_Split(i, link_id)
             obj.innovation = i;
-            obj.link_index = link_index;
+            obj.link_id = link_id;
         end
         
         function express(obj, bridge)
-            old_link = bridge.links(obj.link_index);
+            old_link = bridge.linkID(obj.link_id);
             A = old_link.A;
             B = old_link.B;
             stiffness = old_link.stiffness;
