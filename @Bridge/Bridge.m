@@ -29,5 +29,15 @@ classdef Bridge < Structure
                 warning('No points with id=%d found', id);
             end
         end
+        
+        function link = linkID(obj, id)
+            id_list = [obj.links.id];
+            link = obj.links(id_list == id);
+            if length(link) > 1
+                warning('%d points share the same id=%d', length(link), id);
+            elseif isempty(link)
+                warning('No points with id=%d found', id);
+            end
+        end
     end
 end
