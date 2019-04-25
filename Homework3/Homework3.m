@@ -23,7 +23,7 @@ FILE_NAME = 'Plots/Test1b.avi';
 
 %% Build structure
 %initial 3DArray, initialBeam, initialCube, initialPart4, or initialSquare
-initialBeam
+initialSquare
 n = structure.countPoints();
 [K, B] = structure.getLinkMatrix();
 % structure.plotStructure();
