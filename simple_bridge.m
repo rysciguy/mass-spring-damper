@@ -56,10 +56,7 @@ genome = {Gene_Node(1, [0, 0, 0]);
             Gene_Nudge(31, 8, [0, -2.5, 0])
             Gene_Connect(32, 4, 8, 1)};
         
-        
-sequences = {
-    
-             1:5;
+sequences = {1:5;
              1:6;
              1:7;
              1:8;
@@ -93,16 +90,23 @@ n = length(sequences);
 cols = 4;
 rows = ceil(n/cols);
 bridges = Bridge.empty(n, 0);
+displacements = zeros(n, 1);
+masses = zeros(n, 1);
 for i = 1:n
     bridges(i) = Bridge(genome(sequences{i}));
     bridges(i).assemble();
+    
+    arguments = {'num_plots', n, 'plot_ind', i}; %used for subplots
+    [d, m] = evaluateBridgeFitness(bridges(i), arguments{:});
+    displacements(i) = d;
+    masses(i) = d;
 end
-figure = gcf;
-for i = 1:n
-    subplot(rows, cols, i);
-    bridges(i).plotStructure('limits', limits, 'ax', gca);
-    title(mat2str(cell2mat(sequences(i))));
-end
+% figure = gcf;
+% for i = 1:n
+%     subplot(rows, cols, i);
+%     bridges(i).plotStructure('limits', limits, 'ax', gca);
+%     title(mat2str(cell2mat(sequences(i))));
+% end
 %         
 % figure;
 % n = 3;
