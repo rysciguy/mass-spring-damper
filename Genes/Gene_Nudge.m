@@ -10,6 +10,9 @@ classdef Gene_Nudge < Gene
             obj.dx = dx;
         end
         
+        function increment(obj)
+        end
+        
         function express(obj, bridge)
             pt = bridge.pointID(obj.pt_id);
             pt.pos = pt.pos + obj.dx;

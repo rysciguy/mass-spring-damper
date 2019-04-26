@@ -14,11 +14,12 @@ classdef Genotype < handle
             end
         end
         function addGene(obj, gene)
-            obj.num_points = obj.num_points + 1;
             innovation = obj.incrementInnovation();
             gene.innovation = innovation;
             obj.genome{innovation} = gene;
+            
             gene.genotype = obj;
+            gene.increment();
         end
         function num_links = incrementLinks(obj)
             obj.num_links = obj.num_links + 1;

@@ -10,6 +10,10 @@ classdef Gene_Split < Gene
 %             obj.pt_id = pt_id;
         end
         
+        function increment(obj)
+            obj.pt_id = obj.genotype.incrementPoints();
+        end
+        
         function express(obj, bridge)
             old_link = bridge.linkID(obj.link_id);
             A = old_link.A;
@@ -20,7 +24,7 @@ classdef Gene_Split < Gene
             
             center_pos = A.pos + (B.pos-A.pos)/2;
             C = Point(center_pos);
-            C.id = obj.genotype.incrementPoints;
+            C.id = obj.pt_id;
             C.parents = bridge;
             bridge.addPoint(C);
             
