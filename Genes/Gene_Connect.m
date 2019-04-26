@@ -6,8 +6,7 @@ classdef Gene_Connect < Gene
     end
     
     methods
-        function obj = Gene_Connect(i, pt_A_id, pt_B_id, stiffness)
-            obj.innovation = i;
+        function obj = Gene_Connect(pt_A_id, pt_B_id, stiffness)
             obj.pt_A_id = pt_A_id;
             obj.pt_B_id = pt_B_id;
             obj.stiffness = stiffness;

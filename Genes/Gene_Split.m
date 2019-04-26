@@ -5,8 +5,7 @@ classdef Gene_Split < Gene
     end
     
     methods
-        function obj = Gene_Split(i, link_id)
-            obj.innovation = i;
+        function obj = Gene_Split(link_id)
             obj.link_id = link_id;
 %             obj.pt_id = pt_id;
         end

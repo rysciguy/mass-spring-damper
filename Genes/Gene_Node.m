@@ -5,8 +5,7 @@ classdef Gene_Node < Gene
     end
     
     methods
-        function obj = Gene_Node(i, pos)
-            obj.innovation = i;
+        function obj = Gene_Node(pos)
             obj.pos = pos;
         end
         function express(obj, bridge)

@@ -5,8 +5,7 @@ classdef Gene_Nudge < Gene
     end
     
     methods
-        function obj = Gene_Nudge(i, pt_id, dx)
-            obj.innovation = i;
+        function obj = Gene_Nudge(pt_id, dx)
             obj.pt_id = pt_id;
             obj.dx = dx;
         end
