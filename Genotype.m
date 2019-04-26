@@ -8,7 +8,9 @@ classdef Genotype < handle
     methods
         function addGene(obj, gene)
             obj.num_points = obj.num_points + 1;
-            obj.genome{obj.num_points} = gene;
+            innovation = obj.incrementInnovation();
+            gene.innovation = innovation;
+            obj.genome{innovation} = gene;
         end
         function num_links = incrementLinks(obj)
             obj.num_links = obj.num_links + 1;
@@ -17,6 +19,10 @@ classdef Genotype < handle
         function num_points = incrementPoints(obj)
             obj.num_points = obj.num_points + 1;
             num_points = obj.num_points;
+        end
+        function innovation = incrementInnovation(obj)
+            obj.num_genes = obj.num_genes + 1;
+            innovation = obj.num_genes;
         end
     end
 end
