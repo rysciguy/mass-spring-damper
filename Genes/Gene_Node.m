@@ -10,7 +10,7 @@ classdef Gene_Node < Gene
         end
         function express(obj, bridge)
             pt = Point(obj.pos);
-            pt.pt_id = obj.genotype.incrementPoints();
+            pt.id= obj.genotype.incrementPoints();
             pt.parents = bridge;
             bridge.addPoint(pt);
         end

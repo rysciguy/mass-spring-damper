@@ -6,11 +6,19 @@ classdef Genotype < handle
         genome = {}; %empty genome
     end
     methods
+        function obj = Genotype(genome)
+            if nargin == 1
+                for i = 1:length(genome)
+                    obj.addGene( genome{i} );
+                end
+            end
+        end
         function addGene(obj, gene)
             obj.num_points = obj.num_points + 1;
             innovation = obj.incrementInnovation();
             gene.innovation = innovation;
             obj.genome{innovation} = gene;
+            gene.genotype = obj;
         end
         function num_links = incrementLinks(obj)
             obj.num_links = obj.num_links + 1;
