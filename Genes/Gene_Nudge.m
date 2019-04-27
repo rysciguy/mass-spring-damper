@@ -15,7 +15,10 @@ classdef Gene_Nudge < Gene
         
         function express(obj, bridge)
             pt = bridge.pointID(obj.pt_id);
-            pt.pos = pt.pos + obj.dx;
+            
+            if ~isempty(pt)
+                pt.pos = pt.pos + obj.dx;
+            end
         end
     end
 end
