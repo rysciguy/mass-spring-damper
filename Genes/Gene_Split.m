@@ -20,12 +20,11 @@ classdef Gene_Split < Gene
         function express(obj, bridge)
             old_link = bridge.linkID(obj.link_id);
             
-%             if ~isempty(old_link)
+            if ~isempty(old_link)
                 A = old_link.A;
                 B = old_link.B;
                 stiffness = old_link.stiffness;
-    %             old_link.removeLink();
-%                 old_link.enabled = 0;
+                old_link.enabled = 0;
 
                 center_pos = A.pos + (B.pos-A.pos)/2;
                 C = Point(center_pos);
@@ -42,7 +41,7 @@ classdef Gene_Split < Gene
                 second.id = obj.second_id;
 
                 bridge.links = [bridge.links first second];
-%             end
+            end
         end
     end
 end

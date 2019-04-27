@@ -24,11 +24,15 @@ classdef Gene_Connect < Gene
         function express(obj, bridge)
             pt_A = bridge.pointID(obj.pt_A_id);
             pt_B = bridge.pointID(obj.pt_B_id);
-
-            new_link = pt_A.connectTo(pt_B);
-            new_link.stiffness = obj.stiffness;
-            new_link.id = obj.new_id;
-            bridge.links = [bridge.links new_link];
+            old_link = pt_A.connected(pt_B);
+            if isempty(old_link)
+                new_link = pt_A.connectTo(pt_B);
+                new_link.stiffness = obj.stiffness;
+                new_link.id = obj.new_id;
+                bridge.links = [bridge.links new_link];
+            else
+                old_link.enabled = 1;
+            end
         end
     end
 end
