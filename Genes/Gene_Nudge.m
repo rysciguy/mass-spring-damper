@@ -1,18 +1,23 @@
 classdef Gene_Nudge < Gene
     properties
-        point_index;
+        pt_id;
         dx;
     end
     
     methods
-        function obj = Gene_Nudge(i, point_index, dx)
-            obj.innovation = i;
-            obj.point_index = point_index;
+        function obj = Gene_Nudge(pt_id, dx)
+            obj.innovation = obj.incrementInnovation;
+            
+            obj.pt_id = pt_id;
             obj.dx = dx;
         end
-        
+
         function express(obj, bridge)
-            bridge.points(obj.point_index).pos = bridge.points(obj.point_index).pos + obj.dx;
+            pt = bridge.pointID(obj.pt_id);
+            
+            if ~isempty(pt)
+                pt.pos = pt.pos + obj.dx;
+            end
         end
     end
 end

@@ -10,7 +10,7 @@ classdef Point < handle
         
         parents = [];
         
-        id;
+        id = 0;
         color = [0, 0, 0]; %blue
     end
     methods
