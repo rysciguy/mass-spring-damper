@@ -22,7 +22,7 @@ classdef Gene_Split < Gene
                 B = old_link.B;
                 stiffness = old_link.stiffness;
     %             old_link.removeLink();
-                old_link.enabled = 0;
+%                 old_link.enabled = 0;
 
                 center_pos = A.pos + (B.pos-A.pos)/2;
                 C = Point(center_pos);
