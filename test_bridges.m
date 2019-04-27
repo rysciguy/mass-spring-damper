@@ -1,5 +1,6 @@
 % Script that plots and evaluates the fitness of a sample of manually
 % generated Bridge structures
+clear all %necessary to get rid 
 
 %% Settings
 x_limits = [-1, 11];
@@ -49,8 +50,6 @@ genome = {Gene_Node([0, 0, 0]);
     Gene_Nudge(7, [0, -2.5, 0]);
     Gene_Nudge(8, [0, -2.5, 0])
     Gene_Connect(4, 8, 1)};
-
-G = Genotype(genome);
         
 sequences = {1:10;
              1:11;
