@@ -37,7 +37,7 @@ for i = 1:n %iterate nodes
             K_m = [c^2 c*s -c^2 -c*s; %member stiffness matrix converted to global coordinates
                    c*s s^2 -c*s -s^2;
                    -c^2 -c*s c^2 c*s;
-                   -c*s -s^2 c*s s^2]*links(i, j);
+                   -c*s -s^2 c*s s^2]*links(i, j)/norm(i2j);
 
             indices = [i_ind j_ind];
                     

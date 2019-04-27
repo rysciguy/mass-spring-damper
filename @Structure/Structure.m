@@ -171,7 +171,7 @@ classdef Structure < handle
                 for j = i:obj.n
                     link = obj.points(i).connected(obj.points(j));
                     if ~isempty(link) && link.enabled
-                        K(i, j) = link.stiffness / link.getLength();
+                        K(i, j) = link.stiffness;
                         B(i, j) = link.damping;
                     end
                 end
