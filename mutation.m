@@ -45,7 +45,7 @@ elseif g == 4
     
 elseif g == 5
     %change link stiffness
-    bridges.links(randi([1,linknum]),1).stiffness = ;
+    bridges.links(randi([1,linknum]),1).stiffness = rand*7;
 end
 
 if g == 2
