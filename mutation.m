@@ -10,6 +10,7 @@
         %perform small nudge and then look at the "repulsion" of neighbors
         %change nudge pt so all "repulsions" of neighbors are equal
 %add this new gene to genome
+%ng is just a place holder for now
 
 
 
@@ -32,14 +33,19 @@ elseif g == 2
     nudge = bridges.points(1,randpt).pos + [randi([-10, 10])/10, randi([-10, 10])/10, 0];
     
 elseif g == 3
-    ng = Gene_Connect(n, randi([1,ptnum]), randi([2,ptnum]), 1); %change so that pts are not same
+    ptA = randi([1, ptnum]);
+    ptB = randi([1, ptnum]);
+    for ptA = ptB
+        ptB = randi([1, ptnum]);
+    end
+    ng = Gene_Connect(n, ptA, ptB, 1);
     
 elseif g == 4
     ng = Gene_Node(n, [rand.*10, -5+(5+5).*rand, 0]); %change so it matches the x,y lims
     
 elseif g == 5
     %change link stiffness
-    
+    bridges.links(randi([1,linknum]),1).stiffness = ;
 end
 
 if g == 2
@@ -73,7 +79,7 @@ if g == 2
         repdist(1,2) = -5 - orgipt(1,2);
     end
     
-    ng = Gene_Nudge(n, randpt, repdist);
+    ng = Gene_Nudge(n, randpt, repdist); %change
     
 end
 %end
