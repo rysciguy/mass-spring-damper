@@ -29,35 +29,13 @@ randpt = randi([4, ptnum]);
 
 if g == 1
     %Splits a random existing link
-   ng = Gene_Split(n, randlink);
+   ng = Gene_Split(randlink);
    
 elseif g == 2
     %Nudges a random existing node, excluding nodes 1, 2, or 3
     %ng = Gene_Nudge(n, randpt, [randi([-10, 10])/10, randi([-10, 10])/10, 0]);
     nudge = bridges.points(1,randpt).pos + [randi([-10, 10])/10, randi([-10, 10])/10, 0];
-    
-elseif g == 3
-    %Creates a new link between two random pts
-    ptA = randi([1, ptnum]);
-    ptB = randi([1, ptnum]);
-    for ptA = ptB
-        ptB = randi([1, ptnum]);
-    end
-    ng = Gene_Connect(n, ptA, ptB, 1);
-    
-elseif g == 4
-    %Creates new node with two existing links
-    ng = Gene_Node(n, [rand.*10, -5+(5+5).*rand, 0]); %change so it matches the x,y lims
-    %need to add link connects
-    
-    
-elseif g == 5
-    %Change link stiffness
-    bridges.links(randi([1,linknum]),1).stiffness = rand*7;
-end
-
-if g == 2
-    %acquire each pt's distance from this point
+     %acquire each pt's distance from this point
     %create "repulsion force" based off of this distance
     %sum repulsion forces and convert to some distance
     %check to make sure this distance is within the bounds
@@ -87,7 +65,26 @@ if g == 2
         repdist(1,2) = -5 - orgipt(1,2);
     end
     
-    ng = Gene_Nudge(n, randpt, repdist); %change
+    ng = Gene_Nudge(randpt, repdist); %change
     
+elseif g == 3
+    %Creates a new link between two random pts
+    ptA = randi([1, ptnum]);
+    ptB = randi([1, ptnum]);
+    for ptA = ptB
+        ptB = randi([1, ptnum]);
+    end
+    ng = Gene_Connect(ptA, ptB, 1);
+    
+elseif g == 4
+    %Creates new node with two existing links
+    ng = Gene_Node([rand.*10, -5+(5+5).*rand, 0]); %change so it matches the x,y lims
+    %need to add link connects
+    
+    
+elseif g == 5
+    %Change link stiffness
+    bridges.links(randi([1,linknum]),1).stiffness = rand*7;
 end
+
 %end
