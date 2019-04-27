@@ -88,7 +88,7 @@ sequences = {1:5;
              1:31;
              1:32}; 
             % 1:33};
-n = length(sequences);
+n = size(sequences, 1);
 cols = 4;
 rows = ceil(n/cols);
 bridges = Bridge.empty(n, 0);
