@@ -2,6 +2,9 @@ classdef Gene_Split < Gene
     properties
         link_id;
         pt_id;
+        
+        first_id;
+        second_id;
     end
     
     methods
@@ -9,6 +12,9 @@ classdef Gene_Split < Gene
             obj.innovation = obj.incrementInnovation;
             obj.link_id = link_id;
             obj.pt_id = obj.incrementPoints();
+            
+            obj.first_id = obj.incrementLinks();
+            obj.second_id = obj.incrementLinks();
         end
 
         function express(obj, bridge)
@@ -29,9 +35,11 @@ classdef Gene_Split < Gene
 
                 first = A.connectTo(C);
                 first.stiffness = stiffness;
+                first.id = obj.first_id;
 
                 second = B.connectTo(C);
                 second.stiffness = stiffness;
+                second.id = obj.second_id;
 
                 bridge.links = [bridge.links first second];
 %             end
