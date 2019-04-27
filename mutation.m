@@ -1,6 +1,6 @@
 %function mutation
 
-%NEED TO UPDATE TO BE COMPATIBLE WITH NEW ID SYSTEM
+%STILL A WORK IN PROGRESS
 
 %get genome
 %randomly determine which gene to add
