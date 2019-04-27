@@ -6,13 +6,12 @@ classdef Gene_Node < Gene
     
     methods
         function obj = Gene_Node(pos)
+            obj.innovation = obj.incrementInnovation;
+            
             obj.pos = pos;
+            obj.pt_id = obj.incrementPoints();
         end
-        
-        function increment(obj)
-             obj.pt_id = obj.genotype.incrementPoints();
-        end
-        
+
         function express(obj, bridge)
             pt = Point(obj.pos);
             pt.id = obj.pt_id;

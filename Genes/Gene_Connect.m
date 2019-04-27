@@ -13,13 +13,12 @@ classdef Gene_Connect < Gene
     
     methods
         function obj = Gene_Connect(pt_A_id, pt_B_id, stiffness)
+            obj.innovation = obj.incrementInnovation;
+            
             obj.pt_A_id = pt_A_id;
             obj.pt_B_id = pt_B_id;
             obj.stiffness = stiffness;
-        end
-        
-        function increment(obj)
-             obj.new_id = obj.genotype.incrementLinks();
+            obj.new_id = obj.incrementLinks();
         end
         
         function express(obj, bridge)

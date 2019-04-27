@@ -6,14 +6,11 @@ classdef Gene_Split < Gene
     
     methods
         function obj = Gene_Split(link_id)
+            obj.innovation = obj.incrementInnovation;
             obj.link_id = link_id;
-%             obj.pt_id = pt_id;
+            obj.pt_id = obj.incrementPoints();
         end
-        
-        function increment(obj)
-            obj.pt_id = obj.genotype.incrementPoints();
-        end
-        
+
         function express(obj, bridge)
             old_link = bridge.linkID(obj.link_id);
             

@@ -6,13 +6,12 @@ classdef Gene_Nudge < Gene
     
     methods
         function obj = Gene_Nudge(pt_id, dx)
+            obj.innovation = obj.incrementInnovation;
+            
             obj.pt_id = pt_id;
             obj.dx = dx;
         end
-        
-        function increment(obj)
-        end
-        
+
         function express(obj, bridge)
             pt = bridge.pointID(obj.pt_id);
             
