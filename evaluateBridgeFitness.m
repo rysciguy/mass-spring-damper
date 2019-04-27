@@ -56,10 +56,11 @@ num_links = size(ks,1); %number of nonzero elements in K
 
 % Calculate mass
 L0 = zeros(num_links, 1);
+mass = 0;
 for link_idx = 1:num_links
     L0(link_idx) = norm(link_coords(1, :, link_idx) - link_coords(2, :, link_idx));
+    mass = mass + L0(link_idx) * ks(link_idx);
 end
-mass = unit_mass*sum(L0);
 
 % Plot undeformed structure
 if PLOTTING
