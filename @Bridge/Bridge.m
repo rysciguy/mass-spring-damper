@@ -15,18 +15,22 @@ classdef Bridge < Structure
         function assemble(obj)
             for i = 1:length(obj.genome)
                 g = obj.genome{i};
-                g.express(obj);
+                if ~isempty(g)
+                    g.express(obj);
+                end
             end
+            
            % obj.refresh();
+
         end
         
         function point = pointID(obj, id)
             id_list = [obj.points.id];
             point = obj.points(id_list == id);
             if length(point) > 1
-                warning('%d points share the same id=%d', length(point), id);
+%                 warning('%d points share the same id=%d', length(point), id);
             elseif isempty(point)
-                warning('No points with id=%d found', id);
+%                 warning('No points with id=%d found', id);
             end
         end
         

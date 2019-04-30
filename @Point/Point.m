@@ -11,7 +11,8 @@ classdef Point < handle
         parents = [];
         
         id = 0;
-        color = [0, 0, 0]; %blue
+        static = false;
+        color = [0, 0, 0]; %black
     end
     methods
         function obj = Point(pos)

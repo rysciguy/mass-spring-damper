@@ -23,6 +23,11 @@ c = 10; %constant that converts repulsion force to a distance the pt moves
 
 
 
+% Each mutation should have an associate probability, and a mutation is not
+% guaranteed to occur
+% i.e. "if rand()<0.1" means there's a 10% chance of that if block
+% executing
+
 g=randi([1, 2]);
 randlink = randi([1, linknum]);
 randpt = randi([4, ptnum]);

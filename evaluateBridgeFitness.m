@@ -1,7 +1,10 @@
-function [max_displacement, mass] = evaluateBridgeFitness(structure, varargin)
+function [compliance, mass] = evaluateBridgeFitness(structure, varargin)
 
 %Defaults
 PLOTTING = 1; %if True, plot the undeformed structure above the deformed structure
+PLOT_FORCE = 1;
+load_scale = 10;
+
 x_limits = [0, 10];
 y_limits = [-5, 5];
 limits = [x_limits y_limits];
@@ -24,7 +27,7 @@ end
 
 % Parameters
 unit_mass = 1; %mass per unit length
-force = -0.25;
+force = [0, -0.25, 0];
 gravity = [0, 0, 0];
 
 % Plot settings
@@ -46,7 +49,7 @@ n = structure.countPoints();
 % mass at the end of the beam)
 loads = zeros(n, 3);
 load_inds = [2]; %middle point
-loads(load_inds, 2) = force/length(load_inds);
+loads(load_inds, :) = force/length(load_inds);
 loads = loads + gravity;
 
 % Preprocess links
@@ -66,21 +69,30 @@ end
 if PLOTTING
     subplot(2,num_plots,plot_ind);
     plot_args = {'link_coords', link_coords, 'link_colors', link_colors, 'limits', limits, ...
-            'show_links', show_links};
+            'show_links', show_links, 'ks', ks};
     structure.plotStructure(plot_args{:});
+    if PLOT_FORCE
+        hold on;
+        load_pos = structure.points(load_inds).pos;
+        load_length = force*load_scale;
+        load_arrow = quiver(load_pos(1), load_pos(2), load_length(1), load_length(2),...
+            'r-', 'filled');
+        hold off;
+    end
+        
 end
 
 %% Direct solver
 % tic;
 U = directStiffness(structure, K, loads); %displacement column vector
 % toc;
+U2 = reshape(U, dimensions, n)'; % nx2 array
 max_displacement = max(abs(U));
+compliance = max(norm(U2(load_inds, :)));
 
 %% Plot deformed structure
 % Get position matrix
 if PLOTTING
-
-    U2 = reshape(U, dimensions, n)'; % nx2 array
     pos = zeros(n, 3);  
     for i = 1:n %convert state vector to position matrix
         pos(i, :) = s_0(getindex(i, 1:3, 0));
@@ -108,7 +120,7 @@ if PLOTTING
 
     subplot(2,num_plots,plot_ind+num_plots);
     plot_args = {'pos', pos, 'link_coords', link_coords, 'link_colors', link_colors, 'limits', limits, ...
-            'show_links', show_links};
+            'show_links', show_links, 'ks', ks};
     structure.plotStructure(plot_args{:});
     string = sprintf('m=%.1f, d=%.3e', mass, max_displacement);
     title(string);
