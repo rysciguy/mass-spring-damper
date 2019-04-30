@@ -2,7 +2,6 @@ classdef (Abstract) Gene
     properties
         innovation; %innovation number
         enabled = 1;
-        genotype;
     end
     
     methods (Abstract)
