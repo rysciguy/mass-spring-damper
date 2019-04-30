@@ -46,6 +46,8 @@ genome = {Gene_Node([0, 0, 0]);
     Gene_Nudge(7, [0, -2.5, 0]);
     Gene_Nudge(8, [0, -2.5, 0])
     Gene_Connect(4, 8, 1)};
+
+
         
 sequences = {1:5;
              1:10;
