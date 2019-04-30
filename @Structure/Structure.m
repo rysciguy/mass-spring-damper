@@ -209,7 +209,11 @@ classdef Structure < handle
                 link_coords(2,:,i) = all_coords(Bs(i),:);
                 
                 link = connected(obj.getPoint(link_coords(1,:,i)), obj.getPoint(link_coords(2,:,i)));
-                link_colors(i,:) = link.color;
+                if isempty(link)
+                    link_colors(i,:) = [0,0,0]; %default
+                else
+                    link_colors(i,:) = link.color;
+                end
             end
         end
     end

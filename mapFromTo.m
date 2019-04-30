@@ -11,4 +11,7 @@ output(less) = toLow;
 more = output > toHigh;
 output(more) = toHigh;
 
+% Handle NaNs
+output(isnan(output)) = toLow;
+
 end

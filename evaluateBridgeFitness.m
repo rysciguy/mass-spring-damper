@@ -77,6 +77,7 @@ if PLOTTING
         load_length = force*load_scale;
         load_arrow = quiver(load_pos(1), load_pos(2), load_length(1), load_length(2),...
             'r-', 'filled');
+        hold off;
     end
         
 end
