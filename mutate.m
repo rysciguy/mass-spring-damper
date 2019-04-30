@@ -1,6 +1,7 @@
 function g = mutate(g)
 
 num_genes = length(g);
+num_points = Gene.incrementPoints(0);
 
 p_stiffen = 0.25;
 p_nudge = 0.1;
@@ -13,7 +14,13 @@ k_choices = [0.5, 1, 2, 4];
 
 nudge_radius = 3;
 
+% Mutations that operate on individual genes
+linked_ids = zeros(num_genes, 2); %prepopulate array for later
+
 for i = 1:num_genes
+    linked_ids(i, 1) = g{i}.A_id;
+    linked_ids(i, 2) = g{i}.B_id;
+    
     if rand()<p_stiffen
         old_stiffness = g{i}.stiffness;
 %         index = find(old_stiffness == k_choices);
@@ -57,7 +64,27 @@ for i = 1:num_genes
         g{second.innovation} = second;
     end
             
+    % Mutations that operate on the entire genome
+    p_connect = 0.25;
+    if rand()<p_connect
+        % Pick two random points and check whether than can be connected
+        A = randi(num_points);
+        B = randi(num_points);
+        while A~=B
+            B = randi(num_points);
+        end
         
+        set1 = [A, B];
+        set2 = [A, B];
+        
+        [result1,~] = ismember(set1, linked_ids, 'rows');
+        [result2,~] = ismember(set2, linked_ids, 'rows');
+        
+        if ~any(result1, result2)
+             
+        end
+        
+    end
 end
 
 end

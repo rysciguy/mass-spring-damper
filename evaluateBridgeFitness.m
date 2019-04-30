@@ -125,7 +125,7 @@ if PLOTTING
     plot_args = {'pos', pos, 'link_coords', link_coords, 'link_colors', link_colors, 'limits', limits, ...
             'show_links', show_links, 'ks', ks};
     structure.plotStructure(plot_args{:});
-    string = sprintf('d=%.3e', compliance);
+    string = sprintf('d=%.5e', compliance);
     title(string);
 end
 
