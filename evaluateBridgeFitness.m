@@ -1,4 +1,4 @@
-function [max_displacement, mass] = evaluateBridgeFitness(structure, varargin)
+function [compliance, mass] = evaluateBridgeFitness(structure, varargin)
 
 %Defaults
 PLOTTING = 1; %if True, plot the undeformed structure above the deformed structure
@@ -85,13 +85,13 @@ end
 % tic;
 U = directStiffness(structure, K, loads); %displacement column vector
 % toc;
+U2 = reshape(U, dimensions, n)'; % nx2 array
 max_displacement = max(abs(U));
+compliance = max(norm(U2(load_inds, :)));
 
 %% Plot deformed structure
 % Get position matrix
 if PLOTTING
-
-    U2 = reshape(U, dimensions, n)'; % nx2 array
     pos = zeros(n, 3);  
     for i = 1:n %convert state vector to position matrix
         pos(i, :) = s_0(getindex(i, 1:3, 0));
