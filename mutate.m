@@ -3,19 +3,17 @@ function g = mutate(g)
 num_genes = length(g);
 num_points = Gene.incrementPoints(0);
 
+% Mutations that operate on individual genes
 p_stiffen = 0.25;
 p_nudge = 0.1;
-p_toggle = 0/num_genes;
-p_split = 0.25/num_genes;
+p_toggle = 0.05/num_genes;
+p_split = 0; %0.25/num_genes;
 p_newnode = 0.1/num_genes;
 
-weight_range = [0, 5];
-weight_radius = 2;
 k_choices = [0.5, 1, 2, 4];
 
 nudge_radius = 3;
 
-% Mutations that operate on individual genes
 linked_ids = zeros(num_genes, 2); %prepopulate array for later
 
 for i = 1:num_genes
@@ -39,9 +37,9 @@ for i = 1:num_genes
         angle = 2*pi*rand();
         nudge = rand()*nudge_radius*[cos(angle), sin(angle), 0];
 
-        if rand()<0.5 && ~g{i}.A_static
+        if rand()<0.5 && ~g{i}.A_static && ~isempty(g{i}.A_pos)
             g{i}.A_pos = g{i}.A_pos + nudge;
-        elseif ~g{i}.B_static
+        elseif ~g{i}.B_static && ~isempty(g{i}.B_pos)
             g{i}.B_pos = g{i}.B_pos + nudge;
         end
     end
@@ -86,28 +84,41 @@ for i = 1:num_genes
         g{length(g)+1} = second; 
         disp('Newnode Mutate')
     end
-            
-    % Mutations that operate on the entire genome
-    p_connect = 0;
-    
-    if rand()<p_connect
-        % Pick two random points and check whether than can be connected
-        A = randi(num_points);
+       
+end %for i = 1:num_genes
+
+% Mutations that operate on the entire genome
+dummy = Bridge(g);
+dummy.assemble();
+
+p_connect = 0.1;
+linked_ids = sort(linked_ids')';
+
+if rand()<p_connect
+    max_attempts = 5;
+    attempt = 1;
+
+    % Pick two random points and check whether than can be connected
+    A = 0;
+    B = 0;
+    while A==B || ismember([A,B], linked_ids, 'rows')
+        if attempt > max_attempts
+            break
+        end
         B = randi(num_points);
-        while A~=B
-            B = randi(num_points);
-        end
-        
-        set1 = [A, B];
-        set2 = [A, B];
-        
-        [result1,~] = ismember(set1, linked_ids, 'rows');
-        [result2,~] = ismember(set2, linked_ids, 'rows');
-        
-        if ~any(result1, result2)
-             
-        end
-        
+        A = randi(B);
+        attempt = attempt + 1;
+    end
+
+    if attempt > max_attempts
+    else
+
+        A_pos = dummy.pointID(A).pos;
+        B_pos = dummy.pointID(B).pos;
+
+        new_stiffness = k_choices(randi(length(k_choices)));
+        new = Gene_Link(A, A_pos, B, B_pos, new_stiffness);
+        g{new.innovation} = new;
     end
     
 end
