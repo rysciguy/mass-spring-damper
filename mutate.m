@@ -88,8 +88,8 @@ for i = 1:num_genes
     end
             
     % Mutations that operate on the entire genome
-    p_connect = 0.25;
-    %{
+    p_connect = 0;
+    
     if rand()<p_connect
         % Pick two random points and check whether than can be connected
         A = randi(num_points);
@@ -109,7 +109,7 @@ for i = 1:num_genes
         end
         
     end
-    %}
+    
 end
 
 end
