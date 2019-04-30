@@ -9,18 +9,22 @@ p_split = 0.25/num_genes;
 
 weight_range = [0, 5];
 weight_radius = 2;
+k_choices = [0.5, 1, 2, 4];
 
 nudge_radius = 3;
 
 for i = 1:num_genes
     if rand()<p_stiffen
         old_stiffness = g{i}.stiffness;
-        new_stiffness = old_stiffness + rand()*2*weight_radius-weight_radius;
-        if new_stiffness < weight_range(1)
-            new_stiffness = weight_range(1);
-        elseif new_stiffness > weight_range(2)
-            new_stiffness = weight_range(2);
-        end
+%         index = find(old_stiffness == k_choices);
+        new_stiffness = k_choices(randi(length(k_choices)));
+        
+%         new_stiffness = old_stiffness + rand()*2*weight_radius-weight_radius;
+%         if new_stiffness < weight_range(1)
+%             new_stiffness = weight_range(1);
+%         elseif new_stiffness > weight_range(2)
+%             new_stiffness = weight_range(2);
+%         end
         g{i}.stiffness = new_stiffness;
     end
     if rand()<p_nudge
@@ -49,8 +53,8 @@ for i = 1:num_genes
         
         first = Gene_Link(A_id, A_pos, C_id, C_pos, new_stiffness);
         second = Gene_Link(B_id, B_pos, C_id, C_pos, new_stiffness);
-        g{length(g)+1} = first;
-        g{length(g)+1} = second;
+        g{first.innovation} = first;
+        g{second.innovation} = second;
     end
             
         

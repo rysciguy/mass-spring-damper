@@ -122,7 +122,7 @@ if PLOTTING
     plot_args = {'pos', pos, 'link_coords', link_coords, 'link_colors', link_colors, 'limits', limits, ...
             'show_links', show_links, 'ks', ks};
     structure.plotStructure(plot_args{:});
-    string = sprintf('m=%.1f, d=%.3e', mass, max_displacement);
+    string = sprintf('m=%.1f, d=%.1e', mass, max_displacement);
     title(string);
 end
 
