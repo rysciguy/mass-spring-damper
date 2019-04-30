@@ -1,16 +1,16 @@
-function g = mutate2(g)
+function g = mutate(g)
+
+num_genes = length(g);
 
 p_stiffen = 0.25;
 p_nudge = 0.1;
-p_toggle = 0.05;
-p_split = 0.5;
+p_toggle = 0.05/num_genes;
+p_split = 0.25/num_genes;
 
 weight_range = [0, 5];
-weight_radius = 0.5;
+weight_radius = 2;
 
 nudge_radius = 3;
-
-num_genes = length(g);
 
 for i = 1:num_genes
     if rand()<p_stiffen
@@ -45,10 +45,10 @@ for i = 1:num_genes
         B_pos = g{i}.B_pos; B_id = g{i}.B_id;
         
         C_pos = A_pos + (B_pos-A_pos)/2;
-        C_id = Gene.incrementPoints();
+        C_id = g{i}.incrementPoints();
         
         first = Gene_Link(A_id, A_pos, C_id, C_pos, new_stiffness);
-        second = Gene_Link(C_id, C_pos, B_id, B_pos, new_stiffness);
+        second = Gene_Link(B_id, B_pos, C_id, C_pos, new_stiffness);
         g{length(g)+1} = first;
         g{length(g)+1} = second;
     end
