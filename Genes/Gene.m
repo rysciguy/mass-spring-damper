@@ -1,4 +1,4 @@
-classdef (Abstract) Gene < handle
+classdef (Abstract) Gene
     properties
         innovation; %innovation number
         enabled = 1;

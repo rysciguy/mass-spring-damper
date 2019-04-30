@@ -48,6 +48,7 @@ genome = {Gene_Node([0, 0, 0], 'static');
     Gene_Connect(4, 8, 1)};
 
 
+
         
 sequences = {1:5;
              1:10;
