@@ -63,7 +63,6 @@ for i = 1:num_genes
         g{second.innovation} = second;
     end
     if rand()<p_newnode
-        %g{i}.enabled = false;
         old_stiffness = g{i}.stiffness;
         new_stiffness = old_stiffness; %may change later
         
@@ -82,7 +81,6 @@ for i = 1:num_genes
         second = Gene_Link(B_id, B_pos, C_id, C_pos, new_stiffness);
         g{length(g)+1} = first;
         g{length(g)+1} = second; 
-        disp('Newnode Mutate')
     end
        
 end %for i = 1:num_genes
