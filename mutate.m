@@ -6,8 +6,8 @@ num_points = Gene.incrementPoints(0);
 p_stiffen = 0.25;
 p_nudge = 0.1;
 p_toggle = 0/num_genes;
-p_split = 0/num_genes; %0.25
-p_newnode = 0.25/num_genes;
+p_split = 0.25/num_genes;
+p_newnode = 0.1/num_genes;
 
 weight_range = [0, 5];
 weight_radius = 2;
@@ -89,6 +89,7 @@ for i = 1:num_genes
             
     % Mutations that operate on the entire genome
     p_connect = 0.25;
+    %{
     if rand()<p_connect
         % Pick two random points and check whether than can be connected
         A = randi(num_points);
@@ -108,6 +109,7 @@ for i = 1:num_genes
         end
         
     end
+    %}
 end
 
 end
