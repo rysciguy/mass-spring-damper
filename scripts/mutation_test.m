@@ -1,4 +1,4 @@
-clear all;
+clear all; close all
 
 stiffness = 1;
 num_mutations = 8;
@@ -18,9 +18,7 @@ end
 testGenomes(genome);
 
 
-% sequences = {
-% 1:2;
-% 1:5;
-% };
-% 
-% testSequences(sequences, genome);
+% g1 = genome(:,1);
+% g2 = genome(:,8);
+% [c1, c2] = crossover(g1,10,g2,2);
+% figure;testGenomes([g1 g2 c1 c2]);
