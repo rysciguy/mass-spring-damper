@@ -13,6 +13,8 @@ show_links = 1;
 link_coords = [];
 link_colors = [];
 width_i = 0.5; %default LineWidth for links
+ks = [];
+
 % CHANGE_WIDTH = 0;
 % width_min = 0.5;
 % width_max = 3;
@@ -41,6 +43,8 @@ for index = 1:2:nargin-1
             link_coords = varargin{index+1};
         case 'link_colors'
             link_colors = varargin{index+1};
+        case 'ks'
+            ks = varargin{index+1};
         case 'az'
             az = varargin{index+1};
         case 'el'
@@ -80,11 +84,15 @@ if show_links
     % Get Link coordinates and colors (if not already provided)
     if isempty(link_coords)
         [link_coords, link_colors] = obj.getLinkData(); 
-    end  
-    for i = 1:size(link_coords, 3)
+    end
+    num_links = size(link_coords, 3);
+    if isempty(ks)
+        ks = width_i*ones(num_links, 1);
+    end
+    for i = 1:num_links
         hold on;
         color = link_colors(i, :);
-        link_options = {'k-', 'LineWidth', width_i, 'Color', color};
+        link_options = {'k-', 'LineWidth', ks(i), 'Color', color};
         if dimensions == 2
             plot(link_coords(:,1,i), link_coords(:,2,i), link_options{:});
         elseif dimensions == 3

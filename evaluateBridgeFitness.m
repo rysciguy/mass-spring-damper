@@ -66,7 +66,7 @@ end
 if PLOTTING
     subplot(2,num_plots,plot_ind);
     plot_args = {'link_coords', link_coords, 'link_colors', link_colors, 'limits', limits, ...
-            'show_links', show_links};
+            'show_links', show_links, 'ks', ks};
     structure.plotStructure(plot_args{:});
 end
 
@@ -108,7 +108,7 @@ if PLOTTING
 
     subplot(2,num_plots,plot_ind+num_plots);
     plot_args = {'pos', pos, 'link_coords', link_coords, 'link_colors', link_colors, 'limits', limits, ...
-            'show_links', show_links};
+            'show_links', show_links, 'ks', ks};
     structure.plotStructure(plot_args{:});
     string = sprintf('m=%.1f, d=%.3e', mass, max_displacement);
     title(string);
