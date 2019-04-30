@@ -7,7 +7,7 @@ num_points = Gene.incrementPoints(0);
 p_stiffen = 0.25;
 p_nudge = 0.1;
 p_toggle = 0.05/num_genes;
-p_split = 0; %0.25/num_genes;
+p_split = 0.25/num_genes;
 
 k_choices = [0.5, 1, 2, 4];
 

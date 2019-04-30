@@ -1,7 +1,7 @@
 clear all; close all
 
 stiffness = 1;
-num_mutations = 8;
+num_mutations = 5;
 
 genome = {
 Gene_Link(Gene.incrementPoints(), [0,0,0], Gene.incrementPoints(), [5,0,0], stiffness, 'A_static', 'B_static');
