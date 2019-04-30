@@ -19,7 +19,9 @@ classdef Bridge < Structure
                     g.express(obj);
                 end
             end
-%             obj.refresh();
+            
+           % obj.refresh();
+
         end
         
         function point = pointID(obj, id)
