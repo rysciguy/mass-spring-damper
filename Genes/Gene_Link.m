@@ -60,7 +60,9 @@ classdef Gene_Link < Gene
                 bridge.addPoint(pt);
                 pt.static = static;
             elseif ~pt.static
-                pt.pos = pos;
+                if ~isempty(pt.pos)
+                    pt.pos = pos;
+                end
             end
         end
     end
