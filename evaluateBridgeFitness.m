@@ -24,7 +24,7 @@ end
 
 % Parameters
 unit_mass = 1; %mass per unit length
-force = -0.25;
+force = [0, -0.25, 0];
 gravity = [0, 0, 0];
 
 % Plot settings
@@ -46,7 +46,7 @@ n = structure.countPoints();
 % mass at the end of the beam)
 loads = zeros(n, 3);
 load_inds = [2]; %middle point
-loads(load_inds, 2) = force/length(load_inds);
+loads(load_inds, :) = force/length(load_inds);
 loads = loads + gravity;
 
 % Preprocess links

@@ -14,9 +14,9 @@ clear all %necessary to get rid of persistant variables in Gene class
 %             Gene_Nudge(4, [-1, -1, 0])};
 
         
-genome = {Gene_Node([0, 0, 0]);
-    Gene_Node([5, 0, 0]);
-    Gene_Node([10, 0, 0]);
+genome = {Gene_Node([0, 0, 0], 'static');
+    Gene_Node([5, 0, 0], 'static');
+    Gene_Node([10, 0, 0], 'static');
     Gene_Connect(1, 2, 1);
     Gene_Connect(2, 3, 1);
     Gene_Split(1);
