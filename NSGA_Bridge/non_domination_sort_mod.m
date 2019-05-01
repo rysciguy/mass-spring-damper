@@ -1,4 +1,4 @@
-function chromosome = non_domination_sort_mod(chromosome, M)
+function [chromosome, genome] = non_domination_sort_mod(chromosome, genome, M)
 
 %% function f = non_domination_sort_mod(x, M, V)
 % This function sort the current popultion based on non-domination. All the
@@ -193,6 +193,9 @@ for front = 1 : (length(F) - 1)
     z(previous_index:current_index,:) = y;
 end
 chromosome = z;
+
+% Sort genome the same way chromosome was sorted
+genome = genome(index_of_fronts, :);
 
 %% References
 % [1] *Kalyanmoy Deb, Amrit Pratap, Sameer Agarwal, and T. Meyarivan*, |A Fast

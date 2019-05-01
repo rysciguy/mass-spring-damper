@@ -25,7 +25,7 @@ M = 2; %number of objectives
 % corresponding to their position in the front they belong. At this stage
 % the rank and the crowding distance for each chromosome is added to the
 % chromosome vector for easy of computation.
-chromosome = non_domination_sort_mod(chromosome, M);
+[chromosome, genome] = non_domination_sort_mod(chromosome, genome, M);
 
 %% Start the evolution process
 % The following are performed in each generation
@@ -90,13 +90,14 @@ for i = 1 : gen
     intermediate_chromosome(1:main_pop,:) = chromosome;
     intermediate_chromosome(main_pop + 1 : main_pop + offspring_pop,1 : M) = ...
         offspring_chromosome;
+    intermediate_genome = [genome; offspring_genome];
 
     % Non-domination-sort of intermediate population
     % The intermediate population is sorted again based on non-domination sort
     % before the replacement operator is performed on the intermediate
     % population.
-    intermediate_chromosome = ...
-        non_domination_sort_mod(intermediate_chromosome, M);
+    [intermediate_chromosome, intermediate_genome] = ...
+        non_domination_sort_mod(intermediate_chromosome, intermediate_genome, M);
     % Perform Selection
     % Once the intermediate population is sorted only the best solution is
     % selected based on it rank and crowding distance. Each front is filled in
