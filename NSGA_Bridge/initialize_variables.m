@@ -57,7 +57,7 @@ genome = cell(0, num_genes); %initialize genome
 % For each chromosome perform the following (N is the population size)
 for i = 1 : N
     mutant = mutate(g0);
-    genome = appendMutant(genome, mutant);
+    genome = appendGenome(genome, mutant);
 %     chromosome(i,1:M) = evaluate_objective(genome, M);
 end
 

@@ -1,4 +1,4 @@
-function [offspring_props, offspring_genome]  = genetic_operator(parent_properties, parent_genome, M, mu, mum)
+function [offspring_props, offspring_genome]  = genetic_operator(parent_properties, parent_genome, M)
 offspring_genome = cell(0,0);
 
 %% function f  = genetic_operator(parent_chromosome, M, V, mu, mum, l_limit, u_limit)
@@ -60,7 +60,7 @@ for i = 1 : N
         % Select the second parent
         parent_2 = randi(N);
         % Make sure both the parents are not the same. 
-        while isequal(parent_genome(parent_1,:),parent_genome(parent_2,:))
+        while parent_1==parent_2
             parent_2 = randi(N);
         end
         % Get the chromosome information for each randomnly selected
@@ -107,15 +107,15 @@ for i = 1 : N
     % the generated children for the particular generation.
     if was_crossover
         offspring_props(p:p+1,:) = new_fitness;
-        offspring_genome = appendMutant(offspring_genome, child_1);
-        offspring_genome = appendMutant(offspring_genome, child_2);
+        offspring_genome = appendGenome(offspring_genome, child_1);
+        offspring_genome = appendGenome(offspring_genome, child_2);
 %         child(p,:) = child_1;
 %         child(p+1,:) = child_2;
         was_cossover = 0;
         p = p + 2;
     elseif was_mutation
         offspring_props(p:p+1) = new_fitness;
-        offspring_genome = appendMutant(offspring_genome, child_3);
+        offspring_genome = appendGenome(offspring_genome, child_3);
 %         child(p,:) = child_3(1,1 : M + V);
         was_mutation = 0;
         p = p + 1;

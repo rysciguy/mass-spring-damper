@@ -61,7 +61,7 @@ for i = 1 : gen
     % rank and if individuals with same rank are encountered, crowding
     % distance is compared. A lower rank and higher crowding distance is
     % the selection criteria.
-    parent_chromosome = tournament_selection(chromosome, pool, tour);
+    [parent_chromosome, parent_genome] = tournament_selection(chromosome, genome, pool, tour);
 
     % Perfrom crossover and Mutation operator
     % The original NSGA-II algorithm uses Simulated Binary Crossover (SBX) and
@@ -74,8 +74,7 @@ for i = 1 : gen
     mu = 20;
     mum = 20;
     [offspring_chromosome, offspring_genome] = ...
-        genetic_operator(parent_chromosome, genome, ...
-        M, mu, mum);
+        genetic_operator(parent_chromosome, parent_genome, M);
 
     % Intermediate population
     % Intermediate population is the combined population of parents and
@@ -90,7 +89,7 @@ for i = 1 : gen
     intermediate_chromosome(1:main_pop,:) = chromosome;
     intermediate_chromosome(main_pop + 1 : main_pop + offspring_pop,1 : M) = ...
         offspring_chromosome;
-    intermediate_genome = [genome; offspring_genome];
+    intermediate_genome = appendGenome(genome, offspring_genome);
 
     % Non-domination-sort of intermediate population
     % The intermediate population is sorted again based on non-domination sort

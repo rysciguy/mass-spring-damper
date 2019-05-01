@@ -1,6 +1,7 @@
 function g = mutate(g)
 
-num_genes = length(g);
+occupied = find(~cellfun('isempty', g));
+num_genes = length(occupied);
 
 % Mutations that operate on individual genes
 p_stiffen = 0.25;
@@ -16,7 +17,7 @@ nudge_radius = 3;
 linked_ids = zeros(num_genes, 2); %prepopulate array for later
 point_ids = [];
 
-for i = 1:num_genes
+for i = occupied
     A_id = g{i}.A_id;
     B_id = g{i}.B_id;
     A_pos = g{i}.A_pos;
@@ -85,8 +86,8 @@ for i = 1:num_genes
         
         first = Gene_Link(A_id, A_pos, C_id, C_pos, new_stiffness);
         second = Gene_Link(B_id, B_pos, C_id, C_pos, new_stiffness);
-        g{length(g)+1} = first;
-        g{length(g)+1} = second; 
+        g{first.innovation} = first;
+        g{second.innovation} = second; 
     end
        
 end %for i = 1:num_genes

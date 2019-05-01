@@ -1,7 +1,7 @@
 clear all; close all
 
 stiffness = 1;
-num_mutations = 5;
+num_mutations = 10;
 
 genome = {
 Gene_Link(Gene.incrementPoints(), [0,0,0], Gene.incrementPoints(), [5,0,0], stiffness, 'A_static', 'B_static'),...
@@ -13,9 +13,9 @@ Gene_Link(4, [5,3,0], 3, [10,0,0], stiffness)
 
 for i = 1:num_mutations
     mutant = mutate(genome(i,:));
-    genome = appendMutant(genome, mutant);
+    genome = appendGenome(genome, mutant);
 end
-f = testGenomes(genome, 'plotting', 0);
+f = testGenomes(genome, 'plotting', 1);
 
 
 % g1 = genome(:,1);

@@ -106,5 +106,5 @@ for i = 1 : pool_size
     idxs(i) = selected;
 end
 
-parent_chromosome = chromosome(idxs);
-parent_genome = genome(idxs);
+parent_chromosome = chromosome(idxs,:);
+parent_genome = genome(idxs,:);
