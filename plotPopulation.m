@@ -46,7 +46,7 @@ function plotPopulation(chromosome, genome, M)
         bridge.assemble();
         
         subplot(grid_y, grid_x, s);
-        bridge.plotStructure();
+        bridge.plotBridge();
         
         string = sprintf('%d (d=%.4f, m=%.1f)',...
             i, deflection(i), mass(i)); 
