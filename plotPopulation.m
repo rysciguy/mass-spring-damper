@@ -20,7 +20,7 @@ function plotPopulation(chromosome, genome, M)
         case DEFLECTION
             [~, sort_index] = sortrows(front, 1); %sort by deflection
             spacing = floor(front_size/(grid_x*grid_y - 2));
-            sample = randsample(front_size, grid_x*grid_y); %somewhat "evenly" distributed
+            sample = randsample(front_size, min(front_size,grid_x*grid_y)); %somewhat "evenly" distributed
         case CROWDING
             [~, sort_index] = sortrows(front, size(front, 2)); %sort by crowding
             sort_index = sort_index(end:-1:1); %reverse
