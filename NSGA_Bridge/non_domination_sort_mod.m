@@ -192,10 +192,11 @@ for front = 1 : (length(F) - 1)
     y = y(:,1 : M + 2);
     z(previous_index:current_index,:) = y;
 end
-chromosome = z;
+
 
 % Sort genome the same way chromosome was sorted
 genome = genome(index_of_fronts, :);
+chromosome = z;
 
 %% References
 % [1] *Kalyanmoy Deb, Amrit Pratap, Sameer Agarwal, and T. Meyarivan*, |A Fast

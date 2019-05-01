@@ -111,13 +111,11 @@ for i = 1 : N
         offspring_genome = appendGenome(offspring_genome, child_2);
 %         child(p,:) = child_1;
 %         child(p+1,:) = child_2;
-        was_cossover = 0;
         p = p + 2;
     elseif was_mutation
-        offspring_props(p:p+1) = new_fitness;
+        offspring_props(p,:) = new_fitness;
         offspring_genome = appendGenome(offspring_genome, child_3);
 %         child(p,:) = child_3(1,1 : M + V);
-        was_mutation = 0;
         p = p + 1;
     end
 end

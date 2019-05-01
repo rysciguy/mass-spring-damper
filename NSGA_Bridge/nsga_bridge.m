@@ -71,8 +71,6 @@ for i = 1 : gen
     % algorithm, while in this program only the real-coded GA is considered.
     % The distribution indeices for crossover and mutation operators as mu = 20
     % and mum = 20 respectively.
-    mu = 20;
-    mum = 20;
     [offspring_chromosome, offspring_genome] = ...
         genetic_operator(parent_chromosome, parent_genome, M);
 
@@ -81,13 +79,15 @@ for i = 1 : gen
     % offsprings of the current generation. The population size is two
     % times the initial population.
     
-    [main_pop,~] = size(chromosome);
+    [main_pop,columns] = size(chromosome);
     [offspring_pop,~] = size(offspring_chromosome);
+    intermediate_pop = main_pop + offspring_pop;
 
     % intermediate_chromosome is a concatenation of current population and
     % the offspring population.
+    intermediate_chromosome = zeros(intermediate_pop, columns);
     intermediate_chromosome(1:main_pop,:) = chromosome;
-    intermediate_chromosome(main_pop + 1 : main_pop + offspring_pop,1 : M) = ...
+    intermediate_chromosome(main_pop + 1 : intermediate_pop, 1:M) = ...
         offspring_chromosome;
     intermediate_genome = appendGenome(genome, offspring_genome);
 
