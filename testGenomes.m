@@ -1,4 +1,4 @@
-function f = testGenomes(genomes)
+function f = testGenomes(genomes, varargin)
 % Evaluates n genomes in a x by n cell array genomes, where x is a variable
 % number of genes in each genome
 
@@ -10,7 +10,7 @@ function f = testGenomes(genomes)
         bridges(i) = Bridge(genomes(i,:));
         bridges(i).assemble();
 
-        arguments = {'num_plots', n, 'plot_ind', i}; %used for subplots
+        arguments = [varargin {'num_plots', n, 'plot_ind', i}]; %used for subplots
         [d, m] = evaluateBridgeFitness(bridges(i), arguments{:});
         displacements(i) = d;
         masses(i) = m;

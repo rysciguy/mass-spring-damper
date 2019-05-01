@@ -15,7 +15,7 @@ for i = 1:num_mutations
     mutant = mutate(genome(i,:));
     genome = appendMutant(genome, mutant);
 end
-testGenomes(genome);
+f = testGenomes(genome, 'plotting', 0);
 
 
 % g1 = genome(:,1);
