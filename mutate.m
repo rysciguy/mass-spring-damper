@@ -5,10 +5,10 @@ num_genes = length(occupied);
 
 % Mutations that operate on individual genes
 p_stiffen = 0.25;
-p_nudge = 0.1;
-p_toggle = 0.05/num_genes;
+p_nudge = 0.25;
+p_toggle = 0.0/num_genes;
 p_split = 0.25/num_genes;
-p_newnode = 0.1/num_genes;
+p_newnode = 0.25/num_genes;
 
 k_choices = [0.5, 1, 2, 4];
 
@@ -96,7 +96,7 @@ end %for i = 1:num_genes
 dummy = Bridge(g);
 dummy.assemble();
 
-p_connect = 0.1;
+p_connect = 0.2;
 linked_ids = sort(linked_ids')';
 num_points = length(point_ids);
 if rand()<p_connect

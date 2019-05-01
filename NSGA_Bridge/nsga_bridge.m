@@ -110,5 +110,6 @@ for i = 1 : gen
     end
 end
 
+testGenomes(genome);
 
 end

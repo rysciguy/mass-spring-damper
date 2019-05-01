@@ -27,7 +27,7 @@ function [c1, c2] = crossover(g1, f1, g2, f2)
 %     c2(mask) = p1(mask);
 %     c2(~mask) = p2(~mask);
     
-    if f1 > f2
+    if f1 < f2
         disjoint_idxs = setdiff(p1, p2); %in p1 but not p2
         disjoint = g1(disjoint_idxs);
     else
