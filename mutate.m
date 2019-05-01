@@ -8,7 +8,7 @@ p_stiffen = 0.25;
 p_nudge = 0.25;
 p_toggle = 0.0/num_genes;
 p_split = 0.75/num_genes;
-p_newnode = 0.75/num_genes;
+p_newnode = 1/num_genes;
 
 k_choices = [0.5, 1, 2, 4];
 
@@ -81,7 +81,7 @@ for i = occupied
         dist_A = i_nudge - A_pos;
         dist_B = i_nudge - B_pos;
         repf = ((norm(dist_A)).^-2).*(dist_A/norm(dist_A)) + ((norm(dist_B)).^-2).*(dist_B/norm(dist_B));
-        C_pos = ((repf)*2.5)+i_nudge;
+        C_pos = ((repf)*(15/num_genes))+i_nudge;
         C_id = g{i}.incrementPoints();
         
         first = Gene_Link(A_id, A_pos, C_id, C_pos, new_stiffness);
