@@ -1,4 +1,5 @@
-function f  = genetic_operator(parent_properties, genome, M, mu, mum)
+function [offspring_props, offspring_genome]  = genetic_operator(parent_properties, parent_genome, M, mu, mum)
+offspring_genome = cell(0,0);
 
 %% function f  = genetic_operator(parent_chromosome, M, V, mu, mum, l_limit, u_limit)
 % 
@@ -54,42 +55,28 @@ was_mutation = 0;
 for i = 1 : N
     % With 90 % probability perform crossover
     if rand(1) < 0.9
-        % Initialize the children to be null vector.
-        child_1 = [];
-        child_2 = [];
         % Select the first parent
         parent_1 = randi(N);
         % Select the second parent
         parent_2 = randi(N);
         % Make sure both the parents are not the same. 
-        while isequal(genome(parent_1,:),genome(parent_2,:))
+        while isequal(parent_genome(parent_1,:),parent_genome(parent_2,:))
             parent_2 = randi(N);
         end
         % Get the chromosome information for each randomnly selected
         % parents
-        parent_1 = genome(parent_1, :);
-        parent_2 = genome(parent_2, :);
+        g1 = parent_genome(parent_1, :);
+        g2 = parent_genome(parent_2, :);
+        f1 = pseudoFitness(parent_properties(parent_1, 1:M));
+        f2 = pseudoFitness(parent_properties(parent_2, 1:M));
         
+        [child_1, child_2] = crossover(g1, f1, g2, f2);
         
-        
-        [child_1, child_2] = crossover(parent_1, f1, parent_2, f2);
-        
-        % RR: Binary crossover
-        child_1 = zeros(1, V);
-        child_2 = child_1;
-        
-        prob = 0.5;
-        mask = rand(1, V) < prob;
-        child_1(mask) = parent_1(mask);
-        child_1(~mask) = parent_2(~mask);
-        
-        child_2(mask) = parent_2(mask);
-        child_2(~mask) = parent_1(~mask);
-
         % Evaluate the objective function for the offsprings and as before
         % concatenate the offspring chromosome with objective value.
-        child_1(:,V + 1: M + V) = evaluate_objective(child_1, M, V);
-        child_2(:,V + 1: M + V) = evaluate_objective(child_2, M, V);
+        new_children = [child_1; child_2];
+        new_fitness = testGenomes(new_children);
+
         % Set the crossover flag. When crossover is performed two children
         % are generate, while when mutation is performed only only child is
         % generated.
@@ -99,38 +86,19 @@ for i = 1 : N
     % polynomial mutation. 
     else
         % Select at random the parent.
-        parent_3 = round(N*rand(1));
+        parent_3 = randi(N);
         if parent_3 < 1
             parent_3 = 1;
         end
         % Get the chromosome information for the randomnly selected parent.
-        child_3 = parent_properties(parent_3,:);
+        child_3 = parent_genome(parent_3,:);
         % Perform mutation on eact element of the selected parent.
-        % RR: Binary mutation
-        mut_prob = 0.1;
-        mask = rand(1, V) < mut_prob;
-        child_3(mask) = ~child_3(mask);
+        child_3 = mutate(child_3);
         
-%         for j = 1 : V
-%            r(j) = rand(1);
-%            if r(j) < 0.5
-%                delta(j) = (2*r(j))^(1/(mum+1)) - 1;
-%            else
-%                delta(j) = 1 - (2*(1 - r(j)))^(1/(mum+1));
-%            end
-%            % Generate the corresponding child element.
-%            child_3(j) = child_3(j) + delta(j);
-%            % Make sure that the generated element is within the decision
-%            % space.
-%            if child_3(j) > u_limit
-%                child_3(j) = u_limit;
-%            elseif child_3(j) < l_limit
-%                child_3(j) = l_limit;
-%            end
-%         end
         % Evaluate the objective function for the offspring and as before
         % concatenate the offspring chromosome with objective value.    
-        child_3(:,V + 1: M + V) = evaluate_objective(child_3, M, V);
+        new_fitness = testGenomes(child_3);
+%         child_3(:,V + 1: M + V) = evaluate_objective(child_3, M, V);
         % Set the mutation flag
         was_mutation = 1;
         was_crossover = 0;
@@ -138,14 +106,18 @@ for i = 1 : N
     % Keep proper count and appropriately fill the child variable with all
     % the generated children for the particular generation.
     if was_crossover
-        child(p,:) = child_1;
-        child(p+1,:) = child_2;
+        offspring_props(p:p+1,:) = new_fitness;
+        offspring_genome = appendMutant(offspring_genome, child_1);
+        offspring_genome = appendMutant(offspring_genome, child_2);
+%         child(p,:) = child_1;
+%         child(p+1,:) = child_2;
         was_cossover = 0;
         p = p + 2;
     elseif was_mutation
-        child(p,:) = child_3(1,1 : M + V);
+        offspring_props(p:p+1) = new_fitness;
+        offspring_genome = appendMutant(offspring_genome, child_3);
+%         child(p,:) = child_3(1,1 : M + V);
         was_mutation = 0;
         p = p + 1;
     end
 end
-f = child;

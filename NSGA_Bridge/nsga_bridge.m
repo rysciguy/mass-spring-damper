@@ -73,7 +73,7 @@ for i = 1 : gen
     % and mum = 20 respectively.
     mu = 20;
     mum = 20;
-    offspring_chromosome = ...
+    [offspring_chromosome, offspring_genome] = ...
         genetic_operator(parent_chromosome, genome, ...
         M, mu, mum);
 
@@ -88,7 +88,7 @@ for i = 1 : gen
     % intermediate_chromosome is a concatenation of current population and
     % the offspring population.
     intermediate_chromosome(1:main_pop,:) = chromosome;
-    intermediate_chromosome(main_pop + 1 : main_pop + offspring_pop,1 : M+V) = ...
+    intermediate_chromosome(main_pop + 1 : main_pop + offspring_pop,1 : M) = ...
         offspring_chromosome;
 
     % Non-domination-sort of intermediate population
@@ -96,7 +96,7 @@ for i = 1 : gen
     % before the replacement operator is performed on the intermediate
     % population.
     intermediate_chromosome = ...
-        non_domination_sort_mod(intermediate_chromosome, M, V);
+        non_domination_sort_mod(intermediate_chromosome, M);
     % Perform Selection
     % Once the intermediate population is sorted only the best solution is
     % selected based on it rank and crowding distance. Each front is filled in
