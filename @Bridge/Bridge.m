@@ -5,6 +5,8 @@ classdef Bridge < Structure
         fitness;
     end
     methods
+        plotBridge(obj)
+        
         function obj = Bridge(genome) 
             % Constructor
             obj.dimensions = 2; 

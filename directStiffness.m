@@ -5,6 +5,9 @@ function U = directStiffness(structure, links, loads)
 %   links: global stiffness matrix
 %   loads: force column vector
 
+%% Parameters
+error_cutoff = 1e-5;
+
 %% Set up
 % F = Ku -> u = inv(K)*F
 n = structure.countPoints();
@@ -32,8 +35,16 @@ for i = 1:n %iterate nodes
 
             i2j = pos_j - pos_i;
             theta = atan2(i2j(2), i2j(1));
+            
+            % Calculate trig and eliminate values close to zero
             c = cos(theta);
             s = sin(theta);
+            if abs(c) < error_cutoff
+                c = 0;
+            elseif abs(s) < error_cutoff
+                s = 0;
+            end
+            
             K_m = [c^2 c*s -c^2 -c*s; %member stiffness matrix converted to global coordinates
                    c*s s^2 -c*s -s^2;
                    -c^2 -c*s c^2 c*s;
@@ -67,6 +78,9 @@ end
 % else
 %     U(free) = K(free, free)\F(free);
 % end
+
+% conditioning_threshold = 1e-10;
+% K( abs(K)<conditioning_threshold ) = 0;
 U(free) = K(free, free)\F(free);
 
 end

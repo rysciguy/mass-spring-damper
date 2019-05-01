@@ -129,4 +129,8 @@ if PLOTTING
     title(string);
 end
 
+if compliance > 100 || isnan(compliance)
+    compliance = Inf;
+end
+
 end

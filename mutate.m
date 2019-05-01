@@ -25,7 +25,7 @@ for i = occupied
     
     linked_ids(i, 1) = A_id;
     linked_ids(i, 2) = B_id;
-    point_ids = unique([point_ids A_id B_id]);
+    
    
     
     if rand()<p_stiffen
@@ -88,6 +88,10 @@ for i = occupied
         second = Gene_Link(B_id, B_pos, C_id, C_pos, new_stiffness);
         g{first.innovation} = first;
         g{second.innovation} = second; 
+    end
+    
+    if g{i}.enabled
+        point_ids = unique([point_ids A_id B_id]);
     end
        
 end %for i = 1:num_genes
