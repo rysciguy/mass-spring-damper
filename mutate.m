@@ -90,9 +90,7 @@ for i = occupied
         g{second.innovation} = second; 
     end
     
-    if g{i}.enabled
-        point_ids = unique([point_ids A_id B_id]);
-    end
+    point_ids = unique([point_ids A_id B_id]);
        
 end %for i = 1:num_genes
 
@@ -110,10 +108,11 @@ if rand()<p_connect
     % Pick two random points and check whether than can be connected
     A = 0;
     B = 0;
-    while A==B || ismember([A,B], linked_ids, 'rows')
+    while A==B || ismember(sort([A,B]), linked_ids, 'rows')
         if attempt > max_attempts
             break
         end
+
         B = point_ids(randi(num_points));
         A = point_ids(randi(num_points));
         attempt = attempt + 1;
