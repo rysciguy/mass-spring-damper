@@ -1,4 +1,5 @@
 function chromosome = nsga_2(pop,gen)
+clear all;
 tic
 
 %% function nsga_2(pop,gen)

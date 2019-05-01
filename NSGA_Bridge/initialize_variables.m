@@ -43,30 +43,22 @@ function [genome, chromosome] = initialize_variables(N, M)
 %% Initialize each chromosome
 stiffness = 1;
 
-genome0 = {
-Gene_Link(Gene.incrementPoints(), [0,0,0], Gene.incrementPoints(), [5,0,0], stiffness, 'A_static', 'B_static');
-Gene_Link(2, [5,0,0], Gene.incrementPoints(), [10,0,0], stiffness, 'A_static', 'B_static');
-Gene_Link(1, [0,0,0], Gene.incrementPoints(), [5,3,0], stiffness);
-Gene_Link(4, [5,3,0], 2, [5,0,0], stiffness);
-Gene_Link(4, [5,3,0], 3, [10,0,0], stiffness);
+g0 = {
+Gene_Link(Gene.incrementPoints(), [0,0,0], Gene.incrementPoints(), [5,0,0], stiffness, 'A_static', 'B_static'),...
+Gene_Link(2, [5,0,0], Gene.incrementPoints(), [10,0,0], stiffness, 'A_static', 'B_static'),...
+Gene_Link(1, [0,0,0], Gene.incrementPoints(), [5,3,0], stiffness),...
+Gene_Link(4, [5,3,0], 2, [5,0,0], stiffness),...
+Gene_Link(4, [5,3,0], 3, [10,0,0], stiffness)
 };
+
+num_genes = size(g0,2);
+genome = cell(0, num_genes); %initialize genome
 
 % For each chromosome perform the following (N is the population size)
 for i = 1 : N
-    % Initialize the decision variables based on the minimum and maximum
-    % possible values. V is the number of decision variable. A random
-    % number is picked between the minimum and maximum possible values for
-    % the each decision variable.
-%     for j = 1 : V
-%         f(i,j) = min(j) + (max(j) - min(j))*rand(1);
-%     end
-    % For ease of computation and handling data the chromosome also has the
-    % vlaue of the objective function concatenated at the end. The elements
-    % V + 1 to K has the objective function valued. 
-    % The function evaluate_objective takes one chromosome at a time,
-    % infact only the decision variables are passed to the function along
-    % with information about the number of objective functions which are
-    % processed and returns the value for the objective functions. These
-    % values are now stored at the end of the chromosome itself.
-    f(i,V + 1: K) = evaluate_objective(f(i,:), M, V);
+    mutant = mutate(g0);
+    genome = appendMutant(genome, mutant);
+%     chromosome(i,1:M) = evaluate_objective(genome, M);
 end
+
+chromosome(:,1:M) = testGenomes(genome);

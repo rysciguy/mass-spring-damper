@@ -1,4 +1,4 @@
-function testGenomes(genomes)
+function [masses, displacements] = testGenomes(genomes)
 % Evaluates n genomes in a x by n cell array genomes, where x is a variable
 % number of genes in each genome
 
