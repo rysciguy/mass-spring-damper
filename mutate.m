@@ -114,8 +114,8 @@ if rand()<p_connect
         if attempt > max_attempts
             break
         end
-        B = point_ids(randi(Gene.incrementPoints(0)));
-        A = point_ids(randi(Gene.incrementPoints(0)));
+        B = point_ids(randi(num_points));
+        A = point_ids(randi(num_points));
         attempt = attempt + 1;
     end
 
