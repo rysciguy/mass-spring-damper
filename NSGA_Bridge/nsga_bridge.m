@@ -6,6 +6,8 @@ function [genome, chromosome] = nsga_bridge(pop, gen)
     % chromosome(:, M+1)            rank
     % chromosome(:, end)            crowding
 
+clear Gene; %resets persistant class variables
+
 M = 2; %number of objectives
 
 %% Initialize the population
