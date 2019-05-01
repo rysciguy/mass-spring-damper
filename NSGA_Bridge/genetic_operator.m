@@ -54,7 +54,7 @@ was_mutation = 0;
 
 for i = 1 : N
     % With 90 % probability perform crossover
-    if rand(1) < 0.5
+    if rand(1) < 0.25
         % Select the first parent
         parent_1 = randi(N);
         % Select the second parent
