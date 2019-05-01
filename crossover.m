@@ -1,8 +1,8 @@
 function [c1, c2] = crossover(g1, f1, g2, f2)
 % Crosses over genomes g1 and g2 to produce two children c1 and c2
     
-    child_length = max( size(g1,1), size(g2,1) );
-    c1 = cell(child_length, 1);
+    child_length = max( size(g1,2), size(g2,2) );
+    c1 = cell(1, child_length);
     c2 = c1;
     
     p1 = find(~cellfun('isempty', g1)); %indices where genome g1 has genes
