@@ -104,7 +104,7 @@ for i = 1 : gen
     % ascending order until the addition of population size is reached. The
     % last front is included in the population based on the individuals with
     % least crowding distance
-    chromosome = replace_chromosome(intermediate_chromosome, M, V, pop);
+    [chromosome, genome] = replace_chromosome(intermediate_chromosome, intermediate_genome, M, pop);
     if ~mod(i,100)
         clc
         fprintf('%d generations completed\n',i);

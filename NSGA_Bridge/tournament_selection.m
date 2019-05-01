@@ -1,4 +1,4 @@
-function f = tournament_selection(chromosome, pool_size, tour_size)
+function [parent_chromosome, parent_genome] = tournament_selection(chromosome, genome, pool_size, tour_size)
 
 %% function tournament_selection(chromosome, pool_size, tour_size) 
 % is the selection policy for selecting the individuals for the mating 
@@ -56,26 +56,26 @@ rank = variables - 1;
 % The last element contains information about crowding distance.
 distance = variables;
 
+idxs = zeros(pool_size, 1); %indices of selected candidates
+
 % Until the mating pool is filled, perform tournament selection
 for i = 1 : pool_size
     % Select n individuals at random, where n = tour_size
-    for j = 1 : tour_size
-        % Select an individual at random
-        candidate(j) = round(pop*rand(1));
-        % Make sure that the array starts from one. 
-        if candidate(j) == 0
-            candidate(j) = 1;
-        end
-        if j > 1
-            % Make sure that same candidate is not choosen.
-            while ~isempty(find(candidate(1 : j - 1) == candidate(j)))
-                candidate(j) = round(pop*rand(1));
-                if candidate(j) == 0
-                    candidate(j) = 1;
-                end
-            end
-        end
-    end
+    candidate = randsample(pop, tour_size);
+%     for j = 1 : tour_size
+%         
+%         
+%         % Select an individual at random
+%         candidate(j) = randi(pop);
+% 
+%         if j > 1
+%             % Make sure that same candidate is not choosen.
+%             while any(candidate(1:j-1) == candidate(j))
+% %             while ~isempty(find(candidate(1 : j - 1) == candidate(j)))
+%                 candidate(j) = randi(pop);
+%             end
+%         end
+%     end
     % Collect information about the selected candidates.
     for j = 1 : tour_size
         c_obj_rank(j) = chromosome(candidate(j),rank);
@@ -95,9 +95,16 @@ for i = 1 : pool_size
             max_candidate = max_candidate(1);
         end
         % Add the selected individual to the mating pool
-        f(i,:) = chromosome(candidate(min_candidate(max_candidate)),:);
+        selected = candidate(min_candidate(max_candidate));
+%         f(i,:) = chromosome(candidate(min_candidate(max_candidate)),:);
     else
         % Add the selected individual to the mating pool
-        f(i,:) = chromosome(candidate(min_candidate(1)),:);
+        selected = candidate(min_candidate(1));
+%         f(i,:) = chromosome(candidate(min_candidate(1)),:);
     end
+    
+    idxs(i) = selected;
 end
+
+parent_chromosome = chromosome(idxs);
+parent_genome = genome(idxs);
