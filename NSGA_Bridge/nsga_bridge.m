@@ -111,5 +111,6 @@ for i = 1 : gen
 end
 
 testGenomes(genome);
+plotPopulation(chromosome, genome, 2);
 
 end

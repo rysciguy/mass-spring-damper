@@ -158,9 +158,9 @@ for front = 1 : (length(F) - 1)
     end
     current_index = current_index + i;
     % Sort each individual based on the objective
-    sorted_based_on_objective = [];
+    
     for i = 1 : M
-        [sorted_based_on_objective, index_of_objectives] = ...
+        [~, index_of_objectives] = ...
             sort(y(:,i));
         sorted_based_on_objective = [];
         for j = 1 : length(index_of_objectives)
@@ -197,7 +197,7 @@ end
 % Sort genome the same way chromosome was sorted
 genome = genome(index_of_fronts, :);
 chromosome = z;
-
+1;
 %% References
 % [1] *Kalyanmoy Deb, Amrit Pratap, Sameer Agarwal, and T. Meyarivan*, |A Fast
 % Elitist Multiobjective Genetic Algorithm: NSGA-II|, IEEE Transactions on 
