@@ -1,4 +1,4 @@
-function [masses, displacements] = testGenomes(genomes)
+function f = testGenomes(genomes)
 % Evaluates n genomes in a x by n cell array genomes, where x is a variable
 % number of genes in each genome
 
@@ -16,6 +16,7 @@ function [masses, displacements] = testGenomes(genomes)
         masses(i) = m;
     end
 
+    f = [displacements,masses];
 
 %     bridge = Bridge(genome);
 %     bridge.assemble();

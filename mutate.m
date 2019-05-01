@@ -1,7 +1,6 @@
 function g = mutate(g)
 
 num_genes = length(g);
-num_points = Gene.incrementPoints(0);
 
 % Mutations that operate on individual genes
 p_stiffen = 0.25;
@@ -15,10 +14,18 @@ k_choices = [0.5, 1, 2, 4];
 nudge_radius = 3;
 
 linked_ids = zeros(num_genes, 2); %prepopulate array for later
+point_ids = [];
 
 for i = 1:num_genes
-    linked_ids(i, 1) = g{i}.A_id;
-    linked_ids(i, 2) = g{i}.B_id;
+    A_id = g{i}.A_id;
+    B_id = g{i}.B_id;
+    A_pos = g{i}.A_pos;
+    B_pos = g{i}.B_pos;
+    
+    linked_ids(i, 1) = A_id;
+    linked_ids(i, 2) = B_id;
+    point_ids = unique([point_ids A_id B_id]);
+   
     
     if rand()<p_stiffen
         old_stiffness = g{i}.stiffness;
@@ -51,8 +58,8 @@ for i = 1:num_genes
         old_stiffness = g{i}.stiffness;
         new_stiffness = old_stiffness; %may change later
         
-        A_pos = g{i}.A_pos; A_id = g{i}.A_id;
-        B_pos = g{i}.B_pos; B_id = g{i}.B_id;
+        A_pos = g{i}.A_pos;
+        B_pos = g{i}.B_pos;
         
         C_pos = A_pos + (B_pos-A_pos)/2;
         C_id = g{i}.incrementPoints();
@@ -66,8 +73,7 @@ for i = 1:num_genes
         old_stiffness = g{i}.stiffness;
         new_stiffness = old_stiffness; %may change later
         
-        A_pos = g{i}.A_pos; A_id = g{i}.A_id;
-        B_pos = g{i}.B_pos; B_id = g{i}.B_id;
+        
         
         C_pos_i = A_pos + (B_pos-A_pos)/2;
         i_nudge = C_pos_i + [randi([-10, 10])/10, randi([-10, 10])/10, 0];
@@ -91,7 +97,7 @@ dummy.assemble();
 
 p_connect = 0.1;
 linked_ids = sort(linked_ids')';
-
+num_points = length(point_ids);
 if rand()<p_connect
     max_attempts = 5;
     attempt = 1;
@@ -103,8 +109,8 @@ if rand()<p_connect
         if attempt > max_attempts
             break
         end
-        B = randi(num_points);
-        A = randi(B);
+        B = point_ids(randi(num_points));
+        A = point_ids(randi(num_points));
         attempt = attempt + 1;
     end
 

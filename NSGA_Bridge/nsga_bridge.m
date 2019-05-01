@@ -1,4 +1,4 @@
-function nsga_bridge(pop, gen)
+function [genome, chromosome] = nsga_bridge(pop, gen)
 %  Modified by Ryan Reedy (2019)
 
 % chromosome
