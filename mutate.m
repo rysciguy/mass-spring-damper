@@ -7,8 +7,8 @@ num_genes = length(occupied);
 p_stiffen = 0.25;
 p_nudge = 0.25;
 p_toggle = 0;
-p_split = 0.75/num_genes;
-p_newnode = 1/num_genes;
+p_split = 0.25/num_genes;
+p_newnode = 0.5/num_genes;
 
 k_choices = [0.5, 1, 2, 4];
 
