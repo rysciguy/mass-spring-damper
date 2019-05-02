@@ -132,8 +132,8 @@ end
 if compliance > 1e3 || isnan(compliance)
     compliance = 1e3;
 end
-% if mass <= 5
+if mass <= 5
     mass = 1e3;
-% end
+end
 
 end
