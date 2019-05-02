@@ -4,11 +4,11 @@ occupied = find(~cellfun('isempty', g));
 num_genes = length(occupied);
 
 % Mutations that operate on individual genes
-p_stiffen = 0.25;
+p_stiffen = 0;
 p_nudge = 0.25;
 p_toggle = 0.0/num_genes;
-p_split = 0.75/num_genes;
-p_newnode = 1/num_genes;
+p_split = 0.25/num_genes;
+p_newnode = 0.25/num_genes;
 
 k_choices = [0.5, 1, 2, 4];
 
@@ -94,7 +94,7 @@ dummy = Bridge(g);
 dummy.assemble();
 point_ids = [dummy.points.id];
 
-p_connect = 0.99;
+p_connect = 0.8;
 linked_ids = sort(linked_ids')';
 num_points = length(point_ids);
 if rand()<p_connect
@@ -121,7 +121,7 @@ if rand()<p_connect
         A_pos = dummy.pointID(A).pos;
         B_pos = dummy.pointID(B).pos;
 
-        new_stiffness = k_choices(randi(length(k_choices)));
+        new_stiffness = 1;
         new = Gene_Link(A, A_pos, B, B_pos, new_stiffness);
         g{new.innovation} = new;
     end
