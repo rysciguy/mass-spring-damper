@@ -22,11 +22,7 @@ for i = occupied
     B_id = g{i}.B_id;
     A_pos = g{i}.A_pos;
     B_pos = g{i}.B_pos;
-    
-    
-    
-   
-    
+
     if rand()<p_stiffen
         old_stiffness = g{i}.stiffness;
 %         index = find(old_stiffness == k_choices);
@@ -58,9 +54,6 @@ for i = occupied
         old_stiffness = g{i}.stiffness;
         new_stiffness = old_stiffness; %may change later
         
-        A_pos = g{i}.A_pos;
-        B_pos = g{i}.B_pos;
-        
         C_pos = A_pos + (B_pos-A_pos)/2;
         C_id = g{i}.incrementPoints();
         
@@ -72,8 +65,6 @@ for i = occupied
     if rand()<p_newnode
         old_stiffness = g{i}.stiffness;
         new_stiffness = old_stiffness; %may change later
-        
-        
         
         C_pos_i = A_pos + (B_pos-A_pos)/2;
         i_nudge = C_pos_i + [randi([-10, 10])/10, randi([-10, 10])/10, 0];
@@ -101,6 +92,7 @@ end %for i = 1:num_genes
 % Mutations that operate on the entire genome
 dummy = Bridge(g);
 dummy.assemble();
+point_ids = [dummy.points.id];
 
 p_connect = 0.99;
 linked_ids = sort(linked_ids')';
