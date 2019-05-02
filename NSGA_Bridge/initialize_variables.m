@@ -61,4 +61,4 @@ for i = 1 : N
 %     chromosome(i,1:M) = evaluate_objective(genome, M);
 end
 
-chromosome(:,1:M) = testGenomes(genome);
+chromosome(:,1:M) = testGenomes(genome, 'plotting', 0);

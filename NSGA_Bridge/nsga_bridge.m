@@ -113,5 +113,6 @@ end
 
 testGenomes(genome);
 plotPopulation(chromosome, genome, 2);
+% save('results.mat','chromosome','genome');
 
 end
