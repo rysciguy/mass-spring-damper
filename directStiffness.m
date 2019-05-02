@@ -81,6 +81,8 @@ end
 
 % conditioning_threshold = 1e-10;
 % K( abs(K)<conditioning_threshold ) = 0;
+warning('off', 'MATLAB:nearlySingularMatrix');
+warning('off', 'MATLAB:singularMatrix');
 U(free) = K(free, free)\F(free);
 
 end
