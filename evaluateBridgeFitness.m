@@ -129,8 +129,11 @@ if PLOTTING
     title(string);
 end
 
-if compliance > 100 || isnan(compliance)
-    compliance = Inf;
+if compliance > 1e3 || isnan(compliance)
+    compliance = 1e3;
 end
+% if mass <= 5
+    mass = 1e3;
+% end
 
 end

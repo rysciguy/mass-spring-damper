@@ -23,8 +23,7 @@ for i = occupied
     A_pos = g{i}.A_pos;
     B_pos = g{i}.B_pos;
     
-    linked_ids(i, 1) = A_id;
-    linked_ids(i, 2) = B_id;
+    
     
    
     
@@ -90,6 +89,11 @@ for i = occupied
         g{second.innovation} = second; 
     end
     
+    if g{i}.enabled
+        linked_ids(i, 1) = A_id;
+        linked_ids(i, 2) = B_id;
+    end
+    
     point_ids = unique([point_ids A_id B_id]);
        
 end %for i = 1:num_genes
@@ -120,7 +124,8 @@ if rand()<p_connect
 
     if attempt > max_attempts
     else
-
+        pt_A = dummy.pointID(A);
+        pt_B = dummy.pointID(B);
         A_pos = dummy.pointID(A).pos;
         B_pos = dummy.pointID(B).pos;
 
