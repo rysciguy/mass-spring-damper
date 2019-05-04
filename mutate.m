@@ -1,6 +1,6 @@
 function g = mutate(g)
 
-occupied = find(~cellfun('isempty', g));
+occupied = find(~cellfun('isempty', g)); %indices of cells in the cell array which are not empty
 num_genes = length(occupied);
 
 % Mutations that operate on individual genes
@@ -10,12 +10,11 @@ p_toggle = 0.0/num_genes;
 p_split = 0.25/num_genes;
 p_newnode = 0.25/num_genes;
 
-k_choices = [0.5, 1, 2, 4];
+k_choices = [0.5, 1, 2, 4]; %possible stiffness values
 
-nudge_radius = 3;
+nudge_radius = 3; %maximum nudge distance
 
-linked_ids = zeros(num_genes, 2); %prepopulate array for later
-point_ids = [];
+linked_ids = zeros(0, 2); %array tracking the IDs of all link endpoints
 
 for i = occupied
     A_id = g{i}.A_id;
@@ -24,6 +23,7 @@ for i = occupied
     B_pos = g{i}.B_pos;
 
     if rand()<p_stiffen
+        % Select a stiffness value from an array of choices
         old_stiffness = g{i}.stiffness;
 %         index = find(old_stiffness == k_choices);
         new_stiffness = k_choices(randi(length(k_choices)));
@@ -37,6 +37,8 @@ for i = occupied
         g{i}.stiffness = new_stiffness;
     end
     if rand()<p_nudge
+        % Nudge one point by some amount in a random direction. Static
+        % points are exempt from nudges.
         angle = 2*pi*rand();
         nudge = rand()*nudge_radius*[cos(angle), sin(angle), 0];
 
@@ -47,9 +49,13 @@ for i = occupied
         end
     end
     if rand()<p_toggle
+        % Toggle the gene on or off
         g{i}.enabled = ~g{i}.enabled;
     end
     if rand()<p_split
+        % Disable existing gene and add two new genes connecting the
+        % endpoints to the midpoint
+        
         g{i}.enabled = false;
         old_stiffness = g{i}.stiffness;
         new_stiffness = old_stiffness; %may change later
@@ -84,8 +90,6 @@ for i = occupied
         linked_ids(i, 1) = A_id;
         linked_ids(i, 2) = B_id;
     end
-    
-    point_ids = unique([point_ids A_id B_id]);
        
 end %for i = 1:num_genes
 
@@ -93,36 +97,39 @@ end %for i = 1:num_genes
 dummy = Bridge(g);
 dummy.assemble();
 point_ids = [dummy.points.id];
+As = [dummy.links.A];
+Bs = [dummy.links.B];
+linked_ids = sort([[As.id]', [Bs.id]']); %lowest id in first column
 
 p_connect = 0.8;
-linked_ids = sort(linked_ids')';
+% linked_ids = sort(linked_ids')';
 num_points = length(point_ids);
 if rand()<p_connect
     max_attempts = 5;
     attempt = 1;
 
     % Pick two random points and check whether than can be connected
-    A = 0;
-    B = 0;
-    while A==B || ismember(sort([A,B]), linked_ids, 'rows')
+    A_id = 0;
+    B_id = 0;
+    while A_id==B_id || ismember(sort([A_id,B_id]), linked_ids, 'rows')
         if attempt > max_attempts
             break
         end
 
-        B = point_ids(randi(num_points));
-        A = point_ids(randi(num_points));
+        B_id = point_ids(randi(num_points));
+        A_id = point_ids(randi(num_points));
         attempt = attempt + 1;
     end
 
     if attempt > max_attempts
     else
-        pt_A = dummy.pointID(A);
-        pt_B = dummy.pointID(B);
-        A_pos = dummy.pointID(A).pos;
-        B_pos = dummy.pointID(B).pos;
+        pt_A = dummy.pointID(A_id);
+        pt_B = dummy.pointID(B_id);
+        A_pos = dummy.pointID(A_id).pos;
+        B_pos = dummy.pointID(B_id).pos;
 
         new_stiffness = 1;
-        new = Gene_Link(A, A_pos, B, B_pos, new_stiffness);
+        new = Gene_Link(A_id, A_pos, B_id, B_pos, new_stiffness);
         g{new.innovation} = new;
     end
     
