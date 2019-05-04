@@ -99,7 +99,7 @@ dummy.assemble();
 point_ids = [dummy.points.id];
 As = [dummy.links.A];
 Bs = [dummy.links.B];
-linked_ids = sort([[As.id]', [Bs.id]']); %lowest id in first column
+linked_ids = [[As.id]', [Bs.id]']; %lowest id in first column
 
 p_connect = 0.8;
 % linked_ids = sort(linked_ids')';
@@ -109,22 +109,39 @@ if rand()<p_connect
     A_id = point_ids(randi(num_points));
     [rows, cols] = find(linked_ids == A_id);
     num_neighbors = length(rows);
-    if num_neighbors == num_points-1
+    if num_neighbors >= num_points-1
         % stop
     else
-        neighbors = [];
+        neighbors = zeros(num_neighbors, 0);
         for idx = 1:num_neighbors
             i = rows(idx);
             j = 1 + (cols(idx) == 1); %if A_id is in column 1, neighbor is in column 2
             neighbors(idx) = linked_ids(i, j);
         end
         choices = setdiff(point_ids, [neighbors A_id]);
-        B_id = choices( randi(length(choices)) );
-
+        num_choices = length(choices);
+        
+        % Point A
         pt_A = dummy.pointID(A_id);
+        A_pos = pt_A.pos;
+        
+        % Get nearest point to Point A among choices
+        choice_pts = Point.empty(num_choices, 0);
+        choice_poses = zeros(num_choices, 3);
+        distances = zeros(num_choices, 1);
+        for i = 1:num_choices
+            choice_pts(i) = dummy.pointID(choices(i));
+            choice_poses(i, :) = choice_pts(i).pos;
+            distances(i) = norm(A_pos - choice_poses(i,:));
+        end
+%         distances = norm(A_pos - choice_poses);
+        [~, sorting] = sort(distances);
+        
+        B_id = choices(sorting(1));
+%         B_id = choices( randi(length(choices)) );
+
         pt_B = dummy.pointID(B_id);
-        A_pos = dummy.pointID(A_id).pos;
-        B_pos = dummy.pointID(B_id).pos;
+        B_pos = pt_B.pos;
 
         new_stiffness = 1;
         new = Gene_Link(A_id, A_pos, B_id, B_pos, new_stiffness);
