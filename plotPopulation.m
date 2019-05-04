@@ -28,7 +28,11 @@ function plotPopulation(chromosome, genome, M)
             sample = [1:grid_x*grid_y]; %get least crowded individuals
         case FIRST
             sort_index = 1:grid_x*grid_y;
-            sample = 1:grid_x*grid_y;
+            if front_size < grid_x*grid_y
+                sample = 1:front_size;
+            else
+                sample = 1:grid_x*grid_y;
+            end
     end
     
 

@@ -105,24 +105,22 @@ p_connect = 0.8;
 % linked_ids = sort(linked_ids')';
 num_points = length(point_ids);
 if rand()<p_connect
-    max_attempts = 5;
-    attempt = 1;
-
-    % Pick two random points and check whether than can be connected
-    A_id = 0;
-    B_id = 0;
-    while A_id==B_id || ismember(sort([A_id,B_id]), linked_ids, 'rows')
-        if attempt > max_attempts
-            break
-        end
-
-        B_id = point_ids(randi(num_points));
-        A_id = point_ids(randi(num_points));
-        attempt = attempt + 1;
-    end
-
-    if attempt > max_attempts
+    % Pick two random points and check whether they can be connected
+    A_id = point_ids(randi(num_points));
+    [rows, cols] = find(linked_ids == A_id);
+    num_neighbors = length(rows);
+    if num_neighbors == num_points-1
+        % stop
     else
+        neighbors = [];
+        for idx = 1:num_neighbors
+            i = rows(idx);
+            j = 1 + (cols(idx) == 1); %if A_id is in column 1, neighbor is in column 2
+            neighbors(idx) = linked_ids(i, j);
+        end
+        choices = setdiff(point_ids, [neighbors A_id]);
+        B_id = choices( randi(length(choices)) );
+
         pt_A = dummy.pointID(A_id);
         pt_B = dummy.pointID(B_id);
         A_pos = dummy.pointID(A_id).pos;
