@@ -25,7 +25,7 @@ Ryan Reedy and Chris Rosemann
 - NEAT can take simple networks and create complex networks
   - Can NEAT take a simple initial bridge structure and create a complex bridge
       that can withstand a force with minimal deflection?
-      !(/images/Similarities.png)
+      ![NEAT to Truss](/images/Similarities.PNG)
 
 ## Mutations
 - Each individual gene has a probability to be mutated by each type of mutations
@@ -37,26 +37,26 @@ Ryan Reedy and Chris Rosemann
   - Changes the stiffness of a link
   - Randomly chooses from an array of set stiffness values
   - Adjusts the mass of the link based on new stiffness
-  !(/images/Stiffness.png)
+  ![Stiffness](/images/Stiffness.PNG)
 - Split Link
   - Adds a node in the center of a randomly chosen gene/link
   - This disables the old gene and creates two new genes/links
-  !(/images/Split.png)
+  ![Split Link](/images/Split.PNG)
 - New Node
   - Creates a new node with two new genes/links, but does not disable the original gene/link
   - This mutation utilizes a "repulsion force" to push the new node away from the original Nodes
   - This creates helps to create a triangle structure connected to the original gene
-  !(/images/New_Node.png)
+  ![New Node](/images/New_Node.PNG)
 - Nudge
   - Takes a random node and moves it in a random direction
   - Can increase or decrease the mass of the bridge since it changes the size of the links
       attached to the node
-  !(/images/Nudge.png)
+  ![Nudge](/images/Nudge.PNG)
 - Toggle
   - Disables a randomly chosen gene
   - This mutation is not used here, but is kept in the code for the future
   - Is not useful to delete a link/gene in a bridge, it usually causes a collapse
-!(/images/Toggle.png)
+![Toggle](/images/Toggle.PNG)
 - New Connection
   - Adds a new link from two randomly selected nodes that were not previously connected
-!(/images/Connection.png)
+![New Connection](/images/Connection.PNG)
