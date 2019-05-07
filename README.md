@@ -25,7 +25,7 @@ Ryan Reedy and Chris Rosemann
 - NEAT can take simple networks and create complex networks
   - Can NEAT take a simple initial bridge structure and create a complex bridge
       that can withstand a force with minimal deflection?
-      !(/mass-spring-damper/images/Similarities.png)
+      !(/images/Similarities.png)
 
 ## Mutations
 - Each individual gene has a probability to be mutated by each type of mutations
@@ -37,26 +37,26 @@ Ryan Reedy and Chris Rosemann
   - Changes the stiffness of a link
   - Randomly chooses from an array of set stiffness values
   - Adjusts the mass of the link based on new stiffness
-  !(/mass-spring-damper/images/Stiffness.png)
+  !(/images/Stiffness.png)
 - Split Link
   - Adds a node in the center of a randomly chosen gene/link
   - This disables the old gene and creates two new genes/links
-  !(/mass-spring-damper/images/Split.png)
+  !(/images/Split.png)
 - New Node
   - Creates a new node with two new genes/links, but does not disable the original gene/link
   - This mutation utilizes a "repulsion force" to push the new node away from the original Nodes
   - This creates helps to create a triangle structure connected to the original gene
-  !(/mass-spring-damper/images/New_Node.png)
+  !(/images/New_Node.png)
 - Nudge
   - Takes a random node and moves it in a random direction
   - Can increase or decrease the mass of the bridge since it changes the size of the links
       attached to the node
-  !(/mass-spring-damper/images/Nudge.png)
+  !(/images/Nudge.png)
 - Toggle
   - Disables a randomly chosen gene
   - This mutation is not used here, but is kept in the code for the future
   - Is not useful to delete a link/gene in a bridge, it usually causes a collapse
-!(/mass-spring-damper/images/Toggle.png)
+!(/images/Toggle.png)
 - New Connection
   - Adds a new link from two randomly selected nodes that were not previously connected
-!(/mass-spring-damper/images/Connection.png)
+!(/images/Connection.png)
