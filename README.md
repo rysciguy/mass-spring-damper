@@ -29,10 +29,11 @@ Matlab code for simulating networks of masses connected to each other with sprin
 - Each individual gene has a probability to be mutated by each type of mutations
   - So there is a probability that every gene could be mutated in a cycle or none
   - Also a probability that one gene will be mutated by more than one type of
-    mutation in a cycle 
+    mutation in a cycle
 Six types of mutations:
 - Stiffness
   - Changes the stiffness of a link
+  - Chooses from an array of set values
 - Split Link
 - New Node
 - Nudge
