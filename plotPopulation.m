@@ -9,7 +9,8 @@ function plotPopulation(chromosome, genome, M)
     MASS = 1;
     DEFLECTION = 2;
     CROWDING = 3;
-    sorting = DEFLECTION;
+    FIRST = 4;
+    sorting = FIRST;
     
     % Pareto curve
     pareto_fig = figure;
@@ -25,6 +26,13 @@ function plotPopulation(chromosome, genome, M)
             [~, sort_index] = sortrows(front, size(front, 2)); %sort by crowding
             sort_index = sort_index(end:-1:1); %reverse
             sample = [1:grid_x*grid_y]; %get least crowded individuals
+        case FIRST
+            sort_index = 1:grid_x*grid_y;
+            if front_size < grid_x*grid_y
+                sample = 1:front_size;
+            else
+                sample = 1:grid_x*grid_y;
+            end
     end
     
 

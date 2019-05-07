@@ -111,7 +111,8 @@ for i = 1 : gen
     end
 end
 
-testGenomes(genome);
+testGenomes(genome, 'plotting', 0);
 plotPopulation(chromosome, genome, 2);
+% save('results.mat','chromosome','genome');
 
 end

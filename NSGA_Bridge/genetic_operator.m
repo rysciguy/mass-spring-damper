@@ -75,7 +75,7 @@ for i = 1 : N
         % Evaluate the objective function for the offsprings and as before
         % concatenate the offspring chromosome with objective value.
         new_children = [child_1; child_2];
-        new_fitness = testGenomes(new_children);
+        new_fitness = testGenomes(new_children, 'plotting', 0);
 
         % Set the crossover flag. When crossover is performed two children
         % are generate, while when mutation is performed only only child is
@@ -97,7 +97,7 @@ for i = 1 : N
         
         % Evaluate the objective function for the offspring and as before
         % concatenate the offspring chromosome with objective value.    
-        new_fitness = testGenomes(child_3);
+        new_fitness = testGenomes(child_3, 'plotting', 0);
 %         child_3(:,V + 1: M + V) = evaluate_objective(child_3, M, V);
         % Set the mutation flag
         was_mutation = 1;
