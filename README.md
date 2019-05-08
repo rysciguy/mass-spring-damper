@@ -9,12 +9,7 @@ Ryan Reedy and Chris Rosemann
   3. Develops topologies incrementally from simple initial structures
 
 ## Inspiration from Neural Networks
-  - Observed that NEAT Neural Networks look similar to truss bridge designs
-    - Nodes in a network are like joints in a bridge
-    - Links in a network are like the bars connecting joints in a bridge
-  - NEAT can take simple networks and create complex networks
-    - Can NEAT take a simple initial bridge structure and create a complex bridge
-        that can withstand a force with minimal deflection?
+  There are notable similarities between artificial neural networks and mechanical structures such as trusses. Neural networks consist of neurons (nodes) connected to each other by weights (links); trusses consist of bars (links) connected at revolute joints (nodes). Given this isomorphism, can a functional truss be evolved from a minimal initial structure the same way a neural network can using an algorithm similar to NEAT?
 
         ![NEAT to Truss](/images/Similarities.PNG)
 
@@ -27,15 +22,19 @@ Ryan Reedy and Chris Rosemann
   - Multi-objective optimization for mass and displacement from NSGA-II
   - Topology crossover using innovation history from NEAT
 
+## Overall Process
+Building NEAT Bridges utilizes code written in Matlab. The code takes an initial bridge design, in this case, a simple beam structure as seen in the picture below. These first three starting nodes contain two nodes on the ends that are stationary. The middle node has a force applied to it for testing the bridges. All three nodes cannot be mutated, however the links can. This allows for better control when testing and comparing different bridge designs.
+<img src="images/Process.PNG">
+NSGA-II code with crossover based on NEAT creates an initial population of bridges. Each iteration of the code, a bridge design will be either mutated or experience crossover. The bridges are evaluated based on the fitness function which is based on mass and deflection. The fitter bridges are chosen to continue onto the next generation. After a certain number of generations, the code stops and presents the user with the final population, a plot of the Pareto front, and a selection of the population from the Pareto front.
+
+
 ## Direct Stiffness
 
 ## Crossover
 
 ## Mutations
-- Each individual gene has a probability to be mutated by each type of mutations
-  - So there is a probability that every gene could be mutated in a cycle or none
-  - Also a probability that one gene will be mutated by more than one type of
-    mutation in a cycle
+Each individual gene has a probability to be mutated by each type of mutation. So there is a probability that one gene will be mutated by more than one type of mutation during a cycle. There is also a probability that every gene could be mutated in a cycle or even a small possibility that no genes would be mutated.
+
 ### Six types of mutations:
 - **Stiffness**
   - Changes the stiffness of a link
@@ -75,3 +74,6 @@ Ryan Reedy and Chris Rosemann
   - Adds a new link from two randomly selected nodes that were not previously connected
 
   <img src="images/Connection.PNG" width="266" height="153">
+
+##  Preliminary Results
+<img src="images/Initial_Results.PNG" width="386" height="385">
