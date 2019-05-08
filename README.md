@@ -11,7 +11,7 @@ Ryan Reedy and Chris Rosemann
 ## Inspiration from Neural Networks
   There are notable similarities between artificial neural networks and mechanical structures such as trusses. Neural networks consist of neurons (nodes) connected to each other by weights (links); trusses consist of bars (links) connected at revolute joints (nodes). Given this isomorphism, can a functional truss be evolved from a minimal initial structure the same way a neural network can using an algorithm similar to NEAT?
 
-        ![NEAT to Truss](/images/Similarities.PNG)
+        <img src="images/Similarities.PNG">
 
 ## Key Features
 - Direct stiffness solver
@@ -76,4 +76,5 @@ Each individual gene has a probability to be mutated by each type of mutation. S
   <img src="images/Connection.PNG" width="266" height="153">
 
 ##  Preliminary Results
-<img src="images/Initial_Results.PNG" width="386" height="385">
+
+<img src="images/Initial_Results.png" width="386" height="385">
