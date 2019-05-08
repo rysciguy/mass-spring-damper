@@ -11,6 +11,10 @@ limits = [x_limits y_limits];
 num_plots = 1; %number of subplot columns
 plot_ind = 1; %index of subplot column
 
+fixed_sides = {'left', 'right'};
+applied_loads = {2, [0, -0.25, 0]};
+
+
 %Arguments
 for index = 1:2:nargin-1
     switch lower(varargin{index}) %key
@@ -22,6 +26,10 @@ for index = 1:2:nargin-1
             num_plots = varargin{index+1};
         case 'plot_ind'
             plot_ind = varargin{index+1};
+        case 'fixed_sides'
+            fixed_sides = varargin{index+1};
+        case 'applied_loads'
+            applied_loads = varargin{index+1};
     end
 end
 
@@ -40,16 +48,25 @@ n = structure.countPoints();
 [K, ~] = structure.getLinkMatrix(); %stiffness and damping matrices
 
 % Boundary conditions
-[structure.findPoints('left').DOF] = deal([0,0,0]); %fix left end
-[structure.findPoints('right').DOF] = deal([0,0,0]); %fix right end
+% [structure.findPoints('left').DOF] = deal([0,0,0]); %fix left end
+% [structure.findPoints('right').DOF] = deal([0,0,0]); %fix right end
+fixed_pts = Point.empty();
+for i = 1:length(fixed_sides)
+    fixed_pts = [fixed_pts structure.findPoints(fixed_sides{i})];
+end
+[fixed_pts.DOF] = deal([0,0,0]);
 
 % Apply loads
 % "Evenly distribute a total force of F=0.25 across all the point massses
 % at the distal end (x=9) of the beam (there must be at least one point
 % mass at the end of the beam)
 loads = zeros(n, 3);
-load_inds = [2]; %middle point
-loads(load_inds, :) = force/length(load_inds);
+load_inds = [applied_loads{:, 1}];
+for i = 1:length(load_inds)
+    loads(load_inds(i), :) = applied_loads{i, 2};
+end
+% load_inds = [2]; %middle point
+% loads(load_inds, :) = force/length(load_inds);
 loads = loads + gravity;
 
 % Preprocess links
