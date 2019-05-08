@@ -1,6 +1,7 @@
 
 # Building NEAT Bridges
-Ryan Reedy and Chris Rosemann
+>By Ryan Reedy and Chris Rosemann
+
 ## NEAT or NeuroEvolution of Augmenting Topologies
 - Genetic algorithm used for evolving artificial neural networks
 - Contains three key techniques
@@ -9,9 +10,9 @@ Ryan Reedy and Chris Rosemann
   3. Develops topologies incrementally from simple initial structures
 
 ## Inspiration from Neural Networks
->  There are notable similarities between artificial neural networks and mechanical structures such as trusses. Neural networks consist of neurons (nodes) connected to each other by weights (links); trusses consist of bars (links) connected at revolute joints (nodes). Given this isomorphism, can a functional truss be evolved from a minimal initial structure the same way a neural network can using an algorithm similar to NEAT?
+  There are notable similarities between artificial neural networks and mechanical structures such as trusses. Neural networks consist of neurons (nodes) connected to each other by weights (links); trusses consist of bars (links) connected at revolute joints (nodes). Given this isomorphism, can a functional truss be evolved from a minimal initial structure the same way a neural network can using an algorithm similar to NEAT?
 
-<img src="images/Similarities.png">
+<img src="images/Similarities.PNG">
 
 ## Key Features
 - Direct stiffness solver
@@ -23,7 +24,8 @@ Ryan Reedy and Chris Rosemann
   - Topology crossover using innovation history from NEAT
 
 ## Overall Process
-Building NEAT Bridges utilizes code written in Matlab. The code takes an initial bridge design, in this case, a simple beam structure as seen in the picture below. These first three starting nodes contain two nodes on the ends that are stationary. The middle node has a force applied to it for testing the bridges. All three nodes cannot be mutated, however the links can. This allows for better control when testing and comparing different bridge designs.
+Building NEAT Bridges utilizes code written in Matlab. The code starts with an initial bridge design, in this case, a simple beam structure as seen in the picture below. These first three starting nodes contain two nodes on the ends that are stationary. The middle node has a force applied to it for testing the bridges. All three nodes cannot be mutated, however the links can. This allows for better control when testing and comparing different bridge designs.
+
 <img src="images/Process.PNG">
 NSGA-II code with crossover based on NEAT creates an initial population of bridges. Each iteration of the code, a bridge design will be either mutated or experience crossover. The bridges are evaluated based on the fitness function which is based on mass and deflection. The fitter bridges are chosen to continue onto the next generation. After a certain number of generations, the code stops and presents the user with the final population, a plot of the Pareto front, and a selection of the population from the Pareto front.
 
@@ -66,7 +68,7 @@ Each individual gene has a probability to be mutated by each type of mutation. S
 - **Toggle**
   - Disables a randomly chosen gene
   - This mutation is not used here, but is kept in the code for the future
-  - Is not useful to delete a link/gene in a bridge, it usually causes a collapse
+    - Not useful to delete a link/gene in a bridge, it usually causes a collapse
 
   <img src="images/Toggle.PNG" width="270" height="141">
 
@@ -75,6 +77,11 @@ Each individual gene has a probability to be mutated by each type of mutation. S
 
   <img src="images/Connection.PNG" width="266" height="153">
 
-##  Preliminary Results
+## Results
+Initial results can be seen below with a sample of the final population. This was run with a population size of 100 and 10 generations. It took only twenty seconds to run. A large population size and a low number of generations were found to be the optimal settings for running the code. These results showed that the code was able to build realistic structures, even if it was a simple triangle. However, it can be seen that speciation is a problem, with many of the solutions being similar to one another.
 
 <img src="images/Initial_Results.png" width="386" height="385">
+
+After more work on the code, final results can be viewed below
+
+## Conclusions
