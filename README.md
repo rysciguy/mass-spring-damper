@@ -9,9 +9,9 @@ Ryan Reedy and Chris Rosemann
   3. Develops topologies incrementally from simple initial structures
 
 ## Inspiration from Neural Networks
-  There are notable similarities between artificial neural networks and mechanical structures such as trusses. Neural networks consist of neurons (nodes) connected to each other by weights (links); trusses consist of bars (links) connected at revolute joints (nodes). Given this isomorphism, can a functional truss be evolved from a minimal initial structure the same way a neural network can using an algorithm similar to NEAT?
+>  There are notable similarities between artificial neural networks and mechanical structures such as trusses. Neural networks consist of neurons (nodes) connected to each other by weights (links); trusses consist of bars (links) connected at revolute joints (nodes). Given this isomorphism, can a functional truss be evolved from a minimal initial structure the same way a neural network can using an algorithm similar to NEAT?
 
-        <img src="images/Similarities.png">
+<img src="images/Similarities.png">
 
 ## Key Features
 - Direct stiffness solver
