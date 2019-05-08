@@ -43,12 +43,14 @@ Ryan Reedy and Chris Rosemann
   - Adjusts the mass of the link based on new stiffness
 
   ![Stiffness](/images/Stiffness.PNG =269x168)
+  <img src="images/Stiffness.PNG" width="168" height="269">
 
 - **Split Link**
   - Adds a node in the center of a randomly chosen gene/link
   - This disables the old gene and creates two new genes/links
 
   ![Split Link](/images/Split.PNG =269x143)
+  <img src="images/Split.PNG" width="143" height="269">
 
 - **New Node**
   - Creates a new node with two new genes/links, but does not disable the original gene/link
@@ -56,6 +58,7 @@ Ryan Reedy and Chris Rosemann
   - This creates helps to create a triangle structure connected to the original gene
 
   ![New Node](/images/New_Node.PNG =257x145)
+  <img src="images/New_Node.PNG" width="145" height="257">
 
 - **Nudge**
   - Takes a random node and moves it in a random direction
@@ -63,15 +66,18 @@ Ryan Reedy and Chris Rosemann
       attached to the node
 
   ![Nudge](/images/Nudge.PNG =268x152)
+  <img src="images/Nudge.PNG" width="152" height="268">
 
 - **Toggle**
   - Disables a randomly chosen gene
   - This mutation is not used here, but is kept in the code for the future
   - Is not useful to delete a link/gene in a bridge, it usually causes a collapse
 
-![Toggle](/images/Toggle.PNG =270x141)
+  ![Toggle](/images/Toggle.PNG =270x141)
+  <img src="images/Toggle.PNG" width="141" height="270">
 
 - **New Connection**
   - Adds a new link from two randomly selected nodes that were not previously connected
 
 ![New Connection](/images/Connection.PNG =266x153)
+  <img src="images/Connection.PNG" width="153" height="266">
