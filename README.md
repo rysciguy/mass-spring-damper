@@ -130,7 +130,6 @@ Initial results can be seen below with a sample of the final population. This wa
 
 ### Cons
 - **Lack of speciation:** Because this implementation is based on NSGA-II, it does not provide for speciation like pure NEAT. NSGA-II does not care about the topology of a structure; the only diversity it cares about is the crowding distance along the Pareto front. Innovations are not protected, and the first successful feature tends to dominate the population. 
-- **
 
 ### Future Work
 - **Implementing pure NEAT:** This would enable speciation, giving innovations time to develop before being selected against, and preventing certain traits from dominating the population. Although NEAT is not multi-objective like NSGA-II, the relative importance of mass and deflection could be tuned by the user.
