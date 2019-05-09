@@ -106,16 +106,18 @@ Initial results can be seen below with a sample of the final population. This wa
 <img src="images/Results1.png">
 
 ## Conclusions
+-Combining the principles of NEAT with a direct stiffness solver results in very fast runs. Growing from a minimal starting structure is more efficient than whittling down a dense structure. Solving a single matrix equation is much faster than solving a system of equations at many time steps, although it is also quick to judge structures as unstable even though they might be feasible, like the square structure in the [Crossover](#crossover) section.
+-Because this implementation is based on NSGA-II, it does not provide for speciation like pure NEAT. NSGA-II does not care about the topology of a structure; the only diversity it cares about is the crowding distance along the Pareto front. Innovations are not protected, and the first successful feature tends to dominate the population. 
 
 # Instructions
-This code was built in Matlab R2017a.
+This code was built in Matlab R2017a. Run at your own risk.
 
 0. Clone or download the repository to your computer, and navigate to the main folder (mass-spring-damper/) in Matlab.
 1. Ensure that the necessary files are in your Matlab path. Right click on the NSGA_Bridge folder in the Current Folder pane and select "Add to Path".
 2. In the Command Window, run `[properties, genome] = nsga_bridge(pop, gen)`, where `pop` is the number of individuals in the population, and `gen` is the number of generations.
-3. Two figures should appearas shown in the **Results** section: a Pareto front, and a sample of (undeformed) structures from the front. The chosen structures (circled in red) have the hghest crowding distance.
+3. Two figures should appear as shown in the **Results** section: a Pareto front, and a sample of (undeformed) structures from the front. The chosen structures (circled in red) have the hghest crowding distance.
 
-`properties` is a `pop` by 4 matrix whose columns are:
+`properties` is a `pop x 4` matrix whose columns are:
 1. Deflection
 2. Mass
 3. Front number
