@@ -34,6 +34,7 @@ An initial population is generated and sorted by NSGA-II. A pool of parent solut
 
 ## Mutations
 *See [mutate.m](https://github.com/rysciguy/mass-spring-damper/blob/master/mutate.m)*
+
 Each individual gene can be randomly mutated by each type of mutation. So there is a probability that one gene will be mutated by more than one type of mutation during a cycle. It is possible that every gene could be mutated in a cycle or even a small possibility that no genes are mutated.
 
 ### Six types of mutations:
@@ -79,6 +80,7 @@ Each individual gene can be randomly mutated by each type of mutation. So there 
   
 ## Crossover
 *See [crossover.m](https://github.com/rysciguy/mass-spring-damper/blob/master/crossover.m)*
+
 In crossover, two genomes from the parent population are selected at random and reproduce to create two child genomes. They are assigned a pseudo-fitness value based on an arbitrary linear combination of mass and displacement. For the genes that are common to both parents, the children randomly inherit genes and their properties from each parent. For instance, if both parents have genes with innovation numbers 1 and 2, the first child might inherit gene 1 from parent 2 and gene 2 from parent 1 (vice-versa for the second child).
 
 The disjoint genes belonging to the fitter parent are passed on to the offspring, while the disjoint genes belonging to the less fit parent are discarded. This means that the offspring will have the same topology as their fitter parent. In the example below, the two bottom two nodes are fixed, and a rightward force is applied to the node at (1,1). The triangular structure (parent 2) is stiffer than the unstable square structure (parent 1), so their children will exhibit triangular topology.
@@ -91,13 +93,32 @@ Properties inherited with each gene include the stiffness of the link that it de
 
 ## Direct Stiffness
 *See [directStiffness.m](https://github.com/rysciguy/mass-spring-damper/blob/master/directStiffness.m)*
+
 The direct stiffness method rapidly solves for unknown displacements in a structure. A global stiffness matrix, *K*, is assembled from the local stiffness matrices of each member. After applying loads and boundary conditions, the matrix equation *F* = *KU* is inverted to find the displacement matrix *U* at equilibrium.
+
+<img src="images/DirectStiffnessWikipedia.png" />
 
 This method has significant performance advantages over methods that solve the equations of motion over time. Rather than having to damp the system and wait for it to settle, which could take dozens of iterations, the final position is found in a single step. In a sample beam simulation, direct stiffness took 0.04 seconds versus 1.40 seconds using ode23.
 
 # Results
 Initial results can be seen below with a sample of the final population. This was run with a population size of 100 and 10 generations. It took only twenty seconds to run. A large population size and a low number of generations were found to be the optimal settings for running the code. These results showed that the code was able to build realistic structures, even if it was a simple triangle. However, it can be seen that speciation is a problem, with many of the solutions being similar to one another.
 
-<img src="images/Initial_Results.png" width="386" height="385">
+<img src="images/Results1.png">
 
 ## Conclusions
+
+# Instructions
+This code was built in Matlab R2017a.
+
+0. Clone or download the repository to your computer, and navigate to the main folder (mass-spring-damper/) in Matlab.
+1. Ensure that the necessary files are in your Matlab path. Right click on the NSGA_Bridge folder in the Current Folder pane and select "Add to Path".
+2. In the Command Window, run `[properties, genome] = nsga_bridge(pop, gen)`, where `pop` is the number of individuals in the population, and `gen` is the number of generations.
+3. Two figures should appearas shown in the **Results** section: a Pareto front, and a sample of (undeformed) structures from the front. The chosen structures (circled in red) have the hghest crowding distance.
+
+`properties` is a `pop` by 4 matrix whose columns are:
+1. Deflection
+2. Mass
+3. Front number
+4. Crowding distance
+
+`genome` is a cell array with `pop` rows of `Gene` objects. The column corresponds with the innovation number, as in the figure in the *Crossover* section.
