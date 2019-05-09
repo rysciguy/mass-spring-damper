@@ -16,9 +16,11 @@
   - [Direct Stiffness](#direct-stiffness)
 - [Results](#results)
   - [Conclusions](#conclusions)
+    - [Pros](#pros)
+    - [Cons](#cons)
+    - [Future Work](#future-work)
 - [Instructions](#instructions)
 - [Further Reading](#further-reading)
-
 
 ## Introduction
 This project attempts to generate truss bridges using genetic algorithms, implemented in Matlab. We optimize for both mass and displacement.
@@ -152,7 +154,7 @@ This code was built in Matlab R2017a. Run at your own risk.
 `genome` is a cell array with `pop` rows of `Gene` objects. The column corresponds with the innovation number, as in the figure in the *Crossover* section.
 
 # Further Reading
-- Presentation: https://docs.google.com/presentation/d/1_DXLKBssEdNB_F0i5hjFgC3z72RWG5OUacvs39jl9fY/edit?usp=sharing
-- NEAT paper: http://nn.cs.utexas.edu/downloads/papers/stanley.ec02.pdf
-- NSGA-II paper: https://www.iitk.ac.in/kangal/Deb_NSGA-II.pdf
-- Direct stiffness method: https://en.wikipedia.org/wiki/Direct_stiffness_method
+- Presentation: <https://docs.google.com/presentation/d/1_DXLKBssEdNB_F0i5hjFgC3z72RWG5OUacvs39jl9fY/edit?usp=sharing>
+- NEAT paper: <http://nn.cs.utexas.edu/downloads/papers/stanley.ec02.pdf>
+- NSGA-II paper: <https://www.iitk.ac.in/kangal/Deb_NSGA-II.pdf>
+- Direct stiffness method: <https://en.wikipedia.org/wiki/Direct_stiffness_method>
