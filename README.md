@@ -81,9 +81,11 @@ Each individual gene can be randomly mutated by each type of mutation. So there 
 *See [crossover.m](https://github.com/rysciguy/mass-spring-damper/blob/master/crossover.m)*
 In crossover, two genomes from the parent population are selected at random and reproduce to create two child genomes. They are assigned a pseudo-fitness value based on an arbitrary linear combination of mass and displacement. For the genes that are common to both parents, the children randomly inherit genes and their properties from each parent. For instance, if both parents have genes with innovation numbers 1 and 2, the first child might inherit gene 1 from parent 2 and gene 2 from parent 1 (vice-versa for the second child).
 
+The disjoint genes belonging to the fitter parent are passed on to the offspring, while the disjoint genes belonging to the less fit parent are discarded. This means that the offspring will have the same topology as their fitter parent. In the example below, the two bottom two nodes are fixed, and a rightward force is applied to the node at (1,1). The triangular structure (parent 2) is stiffer than the unstable square structure (parent 1), so their children will exhibit triangular topology.
+
 <img src="images/CrossoverDemoTitled.png" />
 
-Properties inherited with each gene include the stiffness of the link that it defines, whether that link is enabled or disabled, and the position of the two nodes it connects. (This last property is not demonstrated here.)
+Properties inherited with each gene include the stiffness of the link that it defines, whether that link is enabled or disabled, and the position of the two nodes it connects (although only the first property is demonstrated in this example).
 
 <img src="images/CrossoverGenes.PNG" />
 
