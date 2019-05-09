@@ -1,4 +1,4 @@
-function [genome, chromosome] = initialize_variables(N, M)
+function [chromosome, genome] = initialize_variables(N, M)
 
 %% function f = initialize_variables(N, M, V, min_tange, max_range) 
 % This function initializes the chromosomes. Each chromosome has the
