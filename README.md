@@ -2,6 +2,24 @@
 # Building NEAT Bridges
 >By Ryan Reedy and Chris Rosemann
 
+**Table of Contents**
+- [Building NEAT Bridges](#building-neat-bridges)
+  - [Introduction](#introduction)
+  - [Trusses Inspired by Neural Networks](#trusses-inspired-by-neural-networks)
+- [Key Features](#key-features)
+  - [Optimization Algorithms](#optimization-algorithms)
+    - [NeuroEvolution of Augmenting Topologies (NEAT)](#neuroevolution-of-augmenting-topologies-neat)
+    - [Non-dominated Sorting Genetic Algorithm II (NSGA-II)](#non-dominated-sorting-genetic-algorithm-ii-nsga-ii)
+  - [Mutations](#mutations)
+    - [Six types of mutations](#six-types-of-mutations)
+  - [Crossover](#crossover)
+  - [Direct Stiffness](#direct-stiffness)
+- [Results](#results)
+  - [Conclusions](#conclusions)
+- [Instructions](#instructions)
+- [Further Reading](#further-reading)
+
+
 ## Introduction
 This project attempts to generate truss bridges using genetic algorithms, implemented in Matlab. We optimize for both mass and displacement.
 
@@ -37,7 +55,7 @@ An initial population is generated and sorted by NSGA-II. A pool of parent solut
 
 Each individual gene can be randomly mutated by each type of mutation. So there is a probability that one gene will be mutated by more than one type of mutation during a cycle. It is possible that every gene could be mutated in a cycle or even a small possibility that no genes are mutated.
 
-### Six types of mutations:
+### Six types of mutations
 - **Stiffness**
   - Changes the elastic modulus (stiffness) of a link
   - Randomly chooses from an array of set stiffness values
@@ -106,8 +124,9 @@ Initial results can be seen below with a sample of the final population. This wa
 <img src="images/Results1.png">
 
 ## Conclusions
--Combining the principles of NEAT with a direct stiffness solver results in very fast runs. Growing from a minimal starting structure is more efficient than whittling down a dense structure. Solving a single matrix equation is much faster than solving a system of equations at many time steps, although it is also quick to judge structures as unstable even though they might be feasible, like the square structure in the [Crossover](#crossover) section.
--Because this implementation is based on NSGA-II, it does not provide for speciation like pure NEAT. NSGA-II does not care about the topology of a structure; the only diversity it cares about is the crowding distance along the Pareto front. Innovations are not protected, and the first successful feature tends to dominate the population. 
+- **High speed:** Combining the principles of NEAT with a direct stiffness solver results in very fast runs. Growing from a minimal starting structure is more efficient than whittling down a dense structure. Solving a single matrix equation is much faster than solving a system of equations at many time steps, although it is also quick to judge structures as unstable even though they might be feasible, like the square structure in the [Crossover](#crossover) section.
+- **Lack of speciation:** Because this implementation is based on NSGA-II, it does not provide for speciation like pure NEAT. NSGA-II does not care about the topology of a structure; the only diversity it cares about is the crowding distance along the Pareto front. Innovations are not protected, and the first successful feature tends to dominate the population. 
+-
 
 # Instructions
 This code was built in Matlab R2017a. Run at your own risk.
@@ -115,7 +134,7 @@ This code was built in Matlab R2017a. Run at your own risk.
 0. Clone or download the repository to your computer, and navigate to the main folder (mass-spring-damper/) in Matlab.
 1. Ensure that the necessary files are in your Matlab path. Right click on the NSGA_Bridge folder in the Current Folder pane and select "Add to Path".
 2. In the Command Window, run `[properties, genome] = nsga_bridge(pop, gen)`, where `pop` is the number of individuals in the population, and `gen` is the number of generations.
-3. Two figures should appear as shown in the **Results** section: a Pareto front, and a sample of (undeformed) structures from the front. The chosen structures (circled in red) have the hghest crowding distance.
+3. Two figures should appear as shown in the [Results](#results) section: a Pareto front, and a sample of (undeformed) structures from the front. The chosen structures (circled in red) have the hghest crowding distance.
 
 `properties` is a `pop x 4` matrix whose columns are:
 1. Deflection
@@ -124,3 +143,9 @@ This code was built in Matlab R2017a. Run at your own risk.
 4. Crowding distance
 
 `genome` is a cell array with `pop` rows of `Gene` objects. The column corresponds with the innovation number, as in the figure in the *Crossover* section.
+
+# Further Reading
+- Presentation: https://docs.google.com/presentation/d/1_DXLKBssEdNB_F0i5hjFgC3z72RWG5OUacvs39jl9fY/edit?usp=sharing
+- NEAT paper: http://nn.cs.utexas.edu/downloads/papers/stanley.ec02.pdf
+- NSGA-II paper: https://www.iitk.ac.in/kangal/Deb_NSGA-II.pdf
+- Direct stiffness method: https://en.wikipedia.org/wiki/Direct_stiffness_method
