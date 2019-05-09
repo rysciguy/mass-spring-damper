@@ -3,7 +3,7 @@ function [compliance, mass] = evaluateBridgeFitness(structure, varargin)
 %Defaults
 PLOTTING = 1; %if True, plot the undeformed structure above the deformed structure
 PLOT_FORCE = 1;
-load_scale = 10;
+load_scale = 5;
 
 x_limits = [0, 10];
 y_limits = [-5, 5];
@@ -91,8 +91,8 @@ if PLOTTING
     if PLOT_FORCE
         hold on;
         load_pos = structure.points(load_inds).pos;
-        load_length = force*load_scale;
-        load_arrow = quiver(load_pos(1), load_pos(2), load_length(1), load_length(2),...
+        load_length = loads*load_scale;
+        load_arrow = quiver(load_pos(:,1), load_pos(:,2), load_length(load_inds,1), load_length(load_inds,2),...
             'r-', 'filled');
         hold off;
     end
